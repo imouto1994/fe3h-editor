@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.168
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SaveEditor", "SaveEditor\SaveEditor.csproj", "{00B05B1F-1A00-4F49-B1B0-8868C33E1859}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataUnpacker", "DataUnpacker\DataUnpacker.csproj", "{72355CE9-7295-4251-99B5-C6989EA5BBEF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{00B05B1F-1A00-4F49-B1B0-8868C33E1859}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00B05B1F-1A00-4F49-B1B0-8868C33E1859}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00B05B1F-1A00-4F49-B1B0-8868C33E1859}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00B05B1F-1A00-4F49-B1B0-8868C33E1859}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72355CE9-7295-4251-99B5-C6989EA5BBEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72355CE9-7295-4251-99B5-C6989EA5BBEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72355CE9-7295-4251-99B5-C6989EA5BBEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72355CE9-7295-4251-99B5-C6989EA5BBEF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {CE87611C-01B5-4CC6-9EFC-3BF07C3684BC}
+	EndGlobalSection
+EndGlobal

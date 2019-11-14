@@ -1,0 +1,161 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{00B05B1F-1A00-4F49-B1B0-8868C33E1859}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>SaveEditor</RootNamespace>
+    <AssemblyName>FETH_SaveEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>FETH.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Database.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="frmMain.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmMain.Designer.cs">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MemoryHelper.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="PRNG.cs" />
+    <Compile Include="Structs\StringDB.cs" />
+    <Compile Include="Strings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Strings.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Structs\Activities.cs" />
+    <Compile Include="Structs\Battalion.cs" />
+    <Compile Include="Structs\Character.cs" />
+    <Compile Include="Structs\BinaryDB.cs" />
+    <Compile Include="Structs\Item.cs" />
+    <Compile Include="Structs\MemoryDump.cs" />
+    <Compile Include="Structs\Player.cs" />
+    <Compile Include="Structs\Save.cs" />
+    <Compile Include="Structs\Unknown0001.cs" />
+    <Compile Include="Util.cs" />
+    <EmbeddedResource Include="frmMain.resx">
+      <DependentUpon>frmMain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Strings.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Strings.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\CharacterDB.dat" />
+    <EmbeddedResource Include="Data\ClassDB.dat" />
+    <EmbeddedResource Include="Data\ch1\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\ch1\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\ch1\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\ch2\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\ch2\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\ch2\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\de\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\de\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\de\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\en\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\en\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\en\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\en2\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\en2\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\en2\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\es\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\es\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\es\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\es2\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\es2\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\es2\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\fr\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\fr\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\fr\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\fr2\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\fr2\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\fr2\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\it\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\it\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\it\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\jp\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\jp\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\jp\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\kr\FILE_000.dat.gz" />
+    <EmbeddedResource Include="Data\kr\FILE_001.dat.gz" />
+    <EmbeddedResource Include="Data\kr\FILE_002.dat.gz" />
+    <EmbeddedResource Include="Data\SupportTalkDB.dat" />
+    <EmbeddedResource Include="Data\ItemDB_1000.dat" />
+    <EmbeddedResource Include="Data\ItemDB_0010.dat" />
+    <EmbeddedResource Include="Data\ItemDB_4000.dat" />
+    <EmbeddedResource Include="Data\ItemDB_5000.dat" />
+    <EmbeddedResource Include="Data\ItemDB_6000.dat" />
+    <EmbeddedResource Include="Data\ItemDB_0600.dat" />
+    <EmbeddedResource Include="Data\ItemDB_7000.dat" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="FETH.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
