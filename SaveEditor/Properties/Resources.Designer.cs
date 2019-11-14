@@ -59,5 +59,45 @@ namespace SaveEditor.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] fixed_classdata_bin {
+            get {
+                object obj = ResourceManager.GetObject("fixed_classdata_bin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] fixed_data_bin {
+            get {
+                object obj = ResourceManager.GetObject("fixed_data_bin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] fixed_persondata_bin {
+            get {
+                object obj = ResourceManager.GetObject("fixed_persondata_bin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Ressource vom Typ System.Byte[].
+        /// </summary>
+        internal static byte[] msgdata_bin {
+            get {
+                object obj = ResourceManager.GetObject("msgdata_bin", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

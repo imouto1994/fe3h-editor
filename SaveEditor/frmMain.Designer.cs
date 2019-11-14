@@ -95,8 +95,14 @@
             this.label37 = new System.Windows.Forms.Label();
             this.cboLanguage = new System.Windows.Forms.ComboBox();
             this.tabStorage = new System.Windows.Forms.TabPage();
-            this.numEditGiftItem = new System.Windows.Forms.NumericUpDown();
+            this.groupBox16 = new System.Windows.Forms.GroupBox();
+            this.rdoMaxWeapon = new System.Windows.Forms.RadioButton();
+            this.rdoItems100 = new System.Windows.Forms.RadioButton();
+            this.rdoItemsMax = new System.Windows.Forms.RadioButton();
+            this.btnSetDurability = new System.Windows.Forms.Button();
             this.btnSortItems = new System.Windows.Forms.Button();
+            this.btnAddEssentialItems = new System.Windows.Forms.Button();
+            this.numEditGiftItem = new System.Windows.Forms.NumericUpDown();
             this.numEditMiscItem = new System.Windows.Forms.NumericUpDown();
             this.btnEditGiftItem = new System.Windows.Forms.Button();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -122,16 +128,23 @@
             this.clmItemName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmItemAmount = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabCharacter = new System.Windows.Forms.TabPage();
-            this.btnUnlockAllBattleSkills = new System.Windows.Forms.Button();
-            this.btnUnlockAllAbilities = new System.Windows.Forms.Button();
             this.btnImportChara = new System.Windows.Forms.Button();
             this.btnExportChara = new System.Windows.Forms.Button();
             this.btnSaveChara = new System.Windows.Forms.Button();
             this.tabControl2 = new System.Windows.Forms.TabControl();
             this.tabStats = new System.Windows.Forms.TabPage();
-            this.cboCharaBattalion = new System.Windows.Forms.ComboBox();
+            this.groupBox14 = new System.Windows.Forms.GroupBox();
             this.lblCharaBattalion = new System.Windows.Forms.Label();
-            this.cboClass = new System.Windows.Forms.ComboBox();
+            this.lblMotivation = new System.Windows.Forms.Label();
+            this.cboCharaBattalion = new System.Windows.Forms.ComboBox();
+            this.lblExp = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
+            this.numCharaLevel = new System.Windows.Forms.NumericUpDown();
+            this.lblLevel = new System.Windows.Forms.Label();
+            this.numCharaExp = new System.Windows.Forms.NumericUpDown();
+            this.numCharaMotivation = new System.Windows.Forms.NumericUpDown();
+            this.numRNG = new System.Windows.Forms.NumericUpDown();
+            this.btnItemDurability = new System.Windows.Forms.Button();
             this.grpStats = new System.Windows.Forms.GroupBox();
             this.numCharaCharm = new System.Windows.Forms.NumericUpDown();
             this.lblCharm = new System.Windows.Forms.Label();
@@ -165,12 +178,6 @@
             this.cboBattleSkill1 = new System.Windows.Forms.ComboBox();
             this.grpCharaItemList = new System.Windows.Forms.GroupBox();
             this.lstCharacterItems = new System.Windows.Forms.ListBox();
-            this.numCharaMotivation = new System.Windows.Forms.NumericUpDown();
-            this.numCharaExp = new System.Windows.Forms.NumericUpDown();
-            this.lblLevel = new System.Windows.Forms.Label();
-            this.numCharaLevel = new System.Windows.Forms.NumericUpDown();
-            this.lblExp = new System.Windows.Forms.Label();
-            this.lblMotivation = new System.Windows.Forms.Label();
             this.tabSkills = new System.Windows.Forms.TabPage();
             this.grpLearnedMagic = new System.Windows.Forms.GroupBox();
             this.lsvCharaMagic = new System.Windows.Forms.ListView();
@@ -223,14 +230,20 @@
             this.groupBox13 = new System.Windows.Forms.GroupBox();
             this.chkCharaFlags = new System.Windows.Forms.CheckedListBox();
             this.tabClassExp = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.lblCurrentClassLevel = new System.Windows.Forms.Label();
+            this.lblCurrentClassExp = new System.Windows.Forms.Label();
+            this.cboClass = new System.Windows.Forms.ComboBox();
+            this.numCurrentClassLevel = new System.Windows.Forms.NumericUpDown();
+            this.numCurrentClassExp = new System.Windows.Forms.NumericUpDown();
+            this.label23 = new System.Windows.Forms.Label();
+            this.btnMaxClassExp = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.lblClassLevel = new System.Windows.Forms.Label();
             this.lblClassExp = new System.Windows.Forms.Label();
             this.numSetClassLevel = new System.Windows.Forms.NumericUpDown();
             this.numSetClassExp = new System.Windows.Forms.NumericUpDown();
             this.btnSaveClassChanges = new System.Windows.Forms.Button();
-            this.numCurrentClassLevel = new System.Windows.Forms.NumericUpDown();
-            this.numCurrentClassExp = new System.Windows.Forms.NumericUpDown();
             this.lsvClassExp = new System.Windows.Forms.ListView();
             this.clmnClassId = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmnClassExp = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -239,8 +252,10 @@
             this.label12 = new System.Windows.Forms.Label();
             this.chkCharaClassUnlockFlags = new System.Windows.Forms.CheckedListBox();
             this.tabAbilities = new System.Windows.Forms.TabPage();
+            this.btnUnlockAllAbilities = new System.Windows.Forms.Button();
             this.chkAbilities = new System.Windows.Forms.CheckedListBox();
             this.tabCombatArts = new System.Windows.Forms.TabPage();
+            this.btnUnlockAllBattleSkills = new System.Windows.Forms.Button();
             this.chkCombatArts = new System.Windows.Forms.CheckedListBox();
             this.label10 = new System.Windows.Forms.Label();
             this.txtCharacterDebug = new System.Windows.Forms.TextBox();
@@ -263,56 +278,43 @@
             this.grpBattalionList = new System.Windows.Forms.GroupBox();
             this.lstBattalion = new System.Windows.Forms.ListBox();
             this.tabQuest = new System.Windows.Forms.TabPage();
-            this.cboQuestState = new System.Windows.Forms.ComboBox();
+            this.grpQuestEditor = new System.Windows.Forms.GroupBox();
             this.btnQuestSetState = new System.Windows.Forms.Button();
+            this.cboQuestState = new System.Windows.Forms.ComboBox();
             this.grpQuestList = new System.Windows.Forms.GroupBox();
             this.lsvQuest = new System.Windows.Forms.ListView();
             this.clmnQuestName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.clmnQuestState = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabTalk = new System.Windows.Forms.TabPage();
+            this.lblSupportTalkNote = new System.Windows.Forms.Label();
+            this.grpTalkEditor = new System.Windows.Forms.GroupBox();
+            this.numTalkSetState = new System.Windows.Forms.NumericUpDown();
+            this.btnTalkSetState = new System.Windows.Forms.Button();
+            this.grpTalkList = new System.Windows.Forms.GroupBox();
+            this.lsvTalk = new System.Windows.Forms.ListView();
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabTest = new System.Windows.Forms.TabPage();
+            this.tabControl3 = new System.Windows.Forms.TabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.txtCharacterDBDebug = new System.Windows.Forms.TextBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.lstCharacterDB = new System.Windows.Forms.ListBox();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.txtClassDBDebug = new System.Windows.Forms.TextBox();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.lstClassDB = new System.Windows.Forms.ListBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.txtItemDBDebug = new System.Windows.Forms.TextBox();
+            this.groupBox17 = new System.Windows.Forms.GroupBox();
+            this.lstItemDB = new System.Windows.Forms.ListBox();
             this.mnuMain = new System.Windows.Forms.MenuStrip();
             this.mnuFile = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuLoadSave = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuWriteSave = new System.Windows.Forms.ToolStripMenuItem();
             this.mnuExit = new System.Windows.Forms.ToolStripMenuItem();
-            this.tabTest = new System.Windows.Forms.TabPage();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.lstCharacterDB = new System.Windows.Forms.ListBox();
-            this.txtCharacterDBDebug = new System.Windows.Forms.TextBox();
-            this.btnMaxClassExp = new System.Windows.Forms.Button();
-            this.label23 = new System.Windows.Forms.Label();
-            this.groupBox12 = new System.Windows.Forms.GroupBox();
-            this.lblCurrentClassLevel = new System.Windows.Forms.Label();
-            this.lblCurrentClassExp = new System.Windows.Forms.Label();
-            this.tabTalk = new System.Windows.Forms.TabPage();
-            this.grpTalkList = new System.Windows.Forms.GroupBox();
-            this.lsvTalk = new System.Windows.Forms.ListView();
-            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.btnTalkSetState = new System.Windows.Forms.Button();
-            this.grpQuestEditor = new System.Windows.Forms.GroupBox();
-            this.grpTalkEditor = new System.Windows.Forms.GroupBox();
-            this.numTalkSetState = new System.Windows.Forms.NumericUpDown();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.lstClassDB = new System.Windows.Forms.ListBox();
-            this.txtClassDBDebug = new System.Windows.Forms.TextBox();
-            this.label21 = new System.Windows.Forms.Label();
-            this.numRNG = new System.Windows.Forms.NumericUpDown();
-            this.lblSupportTalkNote = new System.Windows.Forms.Label();
-            this.btnItemDurability = new System.Windows.Forms.Button();
-            this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.btnAddEssentialItems = new System.Windows.Forms.Button();
-            this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.btnSetDurability = new System.Windows.Forms.Button();
-            this.rdoItemsMax = new System.Windows.Forms.RadioButton();
-            this.rdoItems100 = new System.Windows.Forms.RadioButton();
-            this.rdoMaxWeapon = new System.Windows.Forms.RadioButton();
-            this.tabControl3 = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.groupBox17 = new System.Windows.Forms.GroupBox();
-            this.lstItemDB = new System.Windows.Forms.ListBox();
-            this.txtItemDBDebug = new System.Windows.Forms.TextBox();
+            this.lblCharaId = new System.Windows.Forms.Label();
+            this.cboCharaId = new System.Windows.Forms.ComboBox();
             this.tabControl1.SuspendLayout();
             this.tabMain.SuspendLayout();
             this.grpGoddessStatue.SuspendLayout();
@@ -347,6 +349,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.numInstructExp)).BeginInit();
             this.grpSettings.SuspendLayout();
             this.tabStorage.SuspendLayout();
+            this.groupBox16.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEditGiftItem)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEditMiscItem)).BeginInit();
             this.groupBox9.SuspendLayout();
@@ -358,6 +361,11 @@
             this.tabCharacter.SuspendLayout();
             this.tabControl2.SuspendLayout();
             this.tabStats.SuspendLayout();
+            this.groupBox14.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCharaLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCharaExp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCharaMotivation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRNG)).BeginInit();
             this.grpStats.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCharaCharm)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numCharaMovement)).BeginInit();
@@ -372,9 +380,6 @@
             this.grpPassiveSkills.SuspendLayout();
             this.grpBattleSkills.SuspendLayout();
             this.grpCharaItemList.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numCharaMotivation)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCharaExp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCharaLevel)).BeginInit();
             this.tabSkills.SuspendLayout();
             this.grpLearnedMagic.SuspendLayout();
             this.grpSkillLevel.SuspendLayout();
@@ -393,11 +398,12 @@
             this.groupBox15.SuspendLayout();
             this.groupBox13.SuspendLayout();
             this.tabClassExp.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassLevel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassExp)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSetClassLevel)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSetClassExp)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassLevel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassExp)).BeginInit();
             this.tabClassFlags.SuspendLayout();
             this.tabAbilities.SuspendLayout();
             this.tabCombatArts.SuspendLayout();
@@ -408,25 +414,21 @@
             ((System.ComponentModel.ISupportInitialize)(this.numBattalionExp)).BeginInit();
             this.grpBattalionList.SuspendLayout();
             this.tabQuest.SuspendLayout();
-            this.grpQuestList.SuspendLayout();
-            this.mnuMain.SuspendLayout();
-            this.tabTest.SuspendLayout();
-            this.groupBox10.SuspendLayout();
-            this.groupBox12.SuspendLayout();
-            this.tabTalk.SuspendLayout();
-            this.grpTalkList.SuspendLayout();
             this.grpQuestEditor.SuspendLayout();
+            this.grpQuestList.SuspendLayout();
+            this.tabTalk.SuspendLayout();
             this.grpTalkEditor.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numTalkSetState)).BeginInit();
-            this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numRNG)).BeginInit();
-            this.groupBox14.SuspendLayout();
-            this.groupBox16.SuspendLayout();
+            this.grpTalkList.SuspendLayout();
+            this.tabTest.SuspendLayout();
             this.tabControl3.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.tabPage2.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.groupBox17.SuspendLayout();
+            this.mnuMain.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -1181,6 +1183,85 @@
             this.tabStorage.Text = "Storage";
             this.tabStorage.UseVisualStyleBackColor = true;
             // 
+            // groupBox16
+            // 
+            this.groupBox16.Controls.Add(this.rdoMaxWeapon);
+            this.groupBox16.Controls.Add(this.rdoItems100);
+            this.groupBox16.Controls.Add(this.rdoItemsMax);
+            this.groupBox16.Controls.Add(this.btnSetDurability);
+            this.groupBox16.Controls.Add(this.btnSortItems);
+            this.groupBox16.Controls.Add(this.btnAddEssentialItems);
+            this.groupBox16.Location = new System.Drawing.Point(280, 168);
+            this.groupBox16.Name = "groupBox16";
+            this.groupBox16.Size = new System.Drawing.Size(200, 160);
+            this.groupBox16.TabIndex = 10;
+            this.groupBox16.TabStop = false;
+            this.groupBox16.Text = "Item Tools";
+            // 
+            // rdoMaxWeapon
+            // 
+            this.rdoMaxWeapon.AutoSize = true;
+            this.rdoMaxWeapon.Location = new System.Drawing.Point(8, 136);
+            this.rdoMaxWeapon.Name = "rdoMaxWeapon";
+            this.rdoMaxWeapon.Size = new System.Drawing.Size(164, 17);
+            this.rdoMaxWeapon.TabIndex = 13;
+            this.rdoMaxWeapon.TabStop = true;
+            this.rdoMaxWeapon.Text = "Weapon to 100, other to Max";
+            this.rdoMaxWeapon.UseVisualStyleBackColor = true;
+            // 
+            // rdoItems100
+            // 
+            this.rdoItems100.AutoSize = true;
+            this.rdoItems100.Location = new System.Drawing.Point(56, 112);
+            this.rdoItems100.Name = "rdoItems100";
+            this.rdoItems100.Size = new System.Drawing.Size(83, 17);
+            this.rdoItems100.TabIndex = 12;
+            this.rdoItems100.TabStop = true;
+            this.rdoItems100.Text = "100 (Infinite)";
+            this.rdoItems100.UseVisualStyleBackColor = true;
+            // 
+            // rdoItemsMax
+            // 
+            this.rdoItemsMax.AutoSize = true;
+            this.rdoItemsMax.Checked = true;
+            this.rdoItemsMax.Location = new System.Drawing.Point(8, 112);
+            this.rdoItemsMax.Name = "rdoItemsMax";
+            this.rdoItemsMax.Size = new System.Drawing.Size(45, 17);
+            this.rdoItemsMax.TabIndex = 11;
+            this.rdoItemsMax.TabStop = true;
+            this.rdoItemsMax.Text = "Max";
+            this.rdoItemsMax.UseVisualStyleBackColor = true;
+            // 
+            // btnSetDurability
+            // 
+            this.btnSetDurability.Location = new System.Drawing.Point(24, 80);
+            this.btnSetDurability.Name = "btnSetDurability";
+            this.btnSetDurability.Size = new System.Drawing.Size(144, 23);
+            this.btnSetDurability.TabIndex = 10;
+            this.btnSetDurability.Text = "Set Durability to:";
+            this.btnSetDurability.UseVisualStyleBackColor = true;
+            this.btnSetDurability.Click += new System.EventHandler(this.btnSetDurability_Click);
+            // 
+            // btnSortItems
+            // 
+            this.btnSortItems.Location = new System.Drawing.Point(24, 16);
+            this.btnSortItems.Name = "btnSortItems";
+            this.btnSortItems.Size = new System.Drawing.Size(144, 23);
+            this.btnSortItems.TabIndex = 4;
+            this.btnSortItems.Text = "Sort Items";
+            this.btnSortItems.UseVisualStyleBackColor = true;
+            this.btnSortItems.Click += new System.EventHandler(this.btnSortItems_Click);
+            // 
+            // btnAddEssentialItems
+            // 
+            this.btnAddEssentialItems.Location = new System.Drawing.Point(24, 48);
+            this.btnAddEssentialItems.Name = "btnAddEssentialItems";
+            this.btnAddEssentialItems.Size = new System.Drawing.Size(144, 23);
+            this.btnAddEssentialItems.TabIndex = 9;
+            this.btnAddEssentialItems.Text = "Add Essential Items";
+            this.btnAddEssentialItems.UseVisualStyleBackColor = true;
+            this.btnAddEssentialItems.Click += new System.EventHandler(this.btnAddEssentialItems_Click);
+            // 
             // numEditGiftItem
             // 
             this.numEditGiftItem.Location = new System.Drawing.Point(808, 600);
@@ -1192,16 +1273,6 @@
             this.numEditGiftItem.Name = "numEditGiftItem";
             this.numEditGiftItem.Size = new System.Drawing.Size(96, 20);
             this.numEditGiftItem.TabIndex = 8;
-            // 
-            // btnSortItems
-            // 
-            this.btnSortItems.Location = new System.Drawing.Point(24, 16);
-            this.btnSortItems.Name = "btnSortItems";
-            this.btnSortItems.Size = new System.Drawing.Size(144, 23);
-            this.btnSortItems.TabIndex = 4;
-            this.btnSortItems.Text = "Sort Items";
-            this.btnSortItems.UseVisualStyleBackColor = true;
-            this.btnSortItems.Click += new System.EventHandler(this.btnSortItems_Click);
             // 
             // numEditMiscItem
             // 
@@ -1451,6 +1522,8 @@
             // 
             // tabCharacter
             // 
+            this.tabCharacter.Controls.Add(this.lblCharaId);
+            this.tabCharacter.Controls.Add(this.cboCharaId);
             this.tabCharacter.Controls.Add(this.btnImportChara);
             this.tabCharacter.Controls.Add(this.btnExportChara);
             this.tabCharacter.Controls.Add(this.btnSaveChara);
@@ -1464,26 +1537,6 @@
             this.tabCharacter.TabIndex = 2;
             this.tabCharacter.Text = "Characters";
             this.tabCharacter.UseVisualStyleBackColor = true;
-            // 
-            // btnUnlockAllBattleSkills
-            // 
-            this.btnUnlockAllBattleSkills.Location = new System.Drawing.Point(496, 320);
-            this.btnUnlockAllBattleSkills.Name = "btnUnlockAllBattleSkills";
-            this.btnUnlockAllBattleSkills.Size = new System.Drawing.Size(120, 23);
-            this.btnUnlockAllBattleSkills.TabIndex = 39;
-            this.btnUnlockAllBattleSkills.Text = "All Combat Arts";
-            this.btnUnlockAllBattleSkills.UseVisualStyleBackColor = true;
-            this.btnUnlockAllBattleSkills.Click += new System.EventHandler(this.btnUnlockAllCombatArts_Click);
-            // 
-            // btnUnlockAllAbilities
-            // 
-            this.btnUnlockAllAbilities.Location = new System.Drawing.Point(496, 320);
-            this.btnUnlockAllAbilities.Name = "btnUnlockAllAbilities";
-            this.btnUnlockAllAbilities.Size = new System.Drawing.Size(120, 23);
-            this.btnUnlockAllAbilities.TabIndex = 39;
-            this.btnUnlockAllAbilities.Text = "All Abilities";
-            this.btnUnlockAllAbilities.UseVisualStyleBackColor = true;
-            this.btnUnlockAllAbilities.Click += new System.EventHandler(this.btnUnlockAllPerks_Click);
             // 
             // btnImportChara
             // 
@@ -1546,15 +1599,24 @@
             this.tabStats.Text = "Main";
             this.tabStats.UseVisualStyleBackColor = true;
             // 
-            // cboCharaBattalion
+            // groupBox14
             // 
-            this.cboCharaBattalion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboCharaBattalion.Enabled = false;
-            this.cboCharaBattalion.FormattingEnabled = true;
-            this.cboCharaBattalion.Location = new System.Drawing.Point(88, 120);
-            this.cboCharaBattalion.Name = "cboCharaBattalion";
-            this.cboCharaBattalion.Size = new System.Drawing.Size(128, 21);
-            this.cboCharaBattalion.TabIndex = 35;
+            this.groupBox14.Controls.Add(this.lblCharaBattalion);
+            this.groupBox14.Controls.Add(this.lblMotivation);
+            this.groupBox14.Controls.Add(this.cboCharaBattalion);
+            this.groupBox14.Controls.Add(this.lblExp);
+            this.groupBox14.Controls.Add(this.label21);
+            this.groupBox14.Controls.Add(this.numCharaLevel);
+            this.groupBox14.Controls.Add(this.lblLevel);
+            this.groupBox14.Controls.Add(this.numCharaExp);
+            this.groupBox14.Controls.Add(this.numCharaMotivation);
+            this.groupBox14.Controls.Add(this.numRNG);
+            this.groupBox14.Location = new System.Drawing.Point(8, 8);
+            this.groupBox14.Name = "groupBox14";
+            this.groupBox14.Size = new System.Drawing.Size(224, 144);
+            this.groupBox14.TabIndex = 37;
+            this.groupBox14.TabStop = false;
+            this.groupBox14.Text = "Main Stats";
             // 
             // lblCharaBattalion
             // 
@@ -1565,15 +1627,109 @@
             this.lblCharaBattalion.TabIndex = 34;
             this.lblCharaBattalion.Text = "Battalion:";
             // 
-            // cboClass
+            // lblMotivation
             // 
-            this.cboClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboClass.Enabled = false;
-            this.cboClass.FormattingEnabled = true;
-            this.cboClass.Location = new System.Drawing.Point(8, 16);
-            this.cboClass.Name = "cboClass";
-            this.cboClass.Size = new System.Drawing.Size(176, 21);
-            this.cboClass.TabIndex = 35;
+            this.lblMotivation.AutoSize = true;
+            this.lblMotivation.Location = new System.Drawing.Point(8, 72);
+            this.lblMotivation.Name = "lblMotivation";
+            this.lblMotivation.Size = new System.Drawing.Size(59, 13);
+            this.lblMotivation.TabIndex = 9;
+            this.lblMotivation.Text = "Motivation:";
+            // 
+            // cboCharaBattalion
+            // 
+            this.cboCharaBattalion.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCharaBattalion.Enabled = false;
+            this.cboCharaBattalion.FormattingEnabled = true;
+            this.cboCharaBattalion.Location = new System.Drawing.Point(88, 120);
+            this.cboCharaBattalion.Name = "cboCharaBattalion";
+            this.cboCharaBattalion.Size = new System.Drawing.Size(128, 21);
+            this.cboCharaBattalion.TabIndex = 35;
+            // 
+            // lblExp
+            // 
+            this.lblExp.AutoSize = true;
+            this.lblExp.Location = new System.Drawing.Point(8, 48);
+            this.lblExp.Name = "lblExp";
+            this.lblExp.Size = new System.Drawing.Size(25, 13);
+            this.lblExp.TabIndex = 8;
+            this.lblExp.Text = "Exp";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(8, 96);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(34, 13);
+            this.label21.TabIndex = 9;
+            this.label21.Text = "RNG:";
+            // 
+            // numCharaLevel
+            // 
+            this.numCharaLevel.Location = new System.Drawing.Point(88, 24);
+            this.numCharaLevel.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numCharaLevel.Name = "numCharaLevel";
+            this.numCharaLevel.Size = new System.Drawing.Size(96, 20);
+            this.numCharaLevel.TabIndex = 10;
+            // 
+            // lblLevel
+            // 
+            this.lblLevel.AutoSize = true;
+            this.lblLevel.Location = new System.Drawing.Point(8, 24);
+            this.lblLevel.Name = "lblLevel";
+            this.lblLevel.Size = new System.Drawing.Size(36, 13);
+            this.lblLevel.TabIndex = 7;
+            this.lblLevel.Text = "Level:";
+            // 
+            // numCharaExp
+            // 
+            this.numCharaExp.Location = new System.Drawing.Point(88, 48);
+            this.numCharaExp.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numCharaExp.Name = "numCharaExp";
+            this.numCharaExp.Size = new System.Drawing.Size(96, 20);
+            this.numCharaExp.TabIndex = 10;
+            // 
+            // numCharaMotivation
+            // 
+            this.numCharaMotivation.Location = new System.Drawing.Point(88, 72);
+            this.numCharaMotivation.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numCharaMotivation.Name = "numCharaMotivation";
+            this.numCharaMotivation.Size = new System.Drawing.Size(96, 20);
+            this.numCharaMotivation.TabIndex = 10;
+            // 
+            // numRNG
+            // 
+            this.numRNG.Location = new System.Drawing.Point(88, 96);
+            this.numRNG.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numRNG.Name = "numRNG";
+            this.numRNG.Size = new System.Drawing.Size(96, 20);
+            this.numRNG.TabIndex = 10;
+            // 
+            // btnItemDurability
+            // 
+            this.btnItemDurability.Location = new System.Drawing.Point(8, 288);
+            this.btnItemDurability.Name = "btnItemDurability";
+            this.btnItemDurability.Size = new System.Drawing.Size(136, 23);
+            this.btnItemDurability.TabIndex = 36;
+            this.btnItemDurability.Text = "Set Item Durability to 100";
+            this.btnItemDurability.UseVisualStyleBackColor = true;
+            this.btnItemDurability.Click += new System.EventHandler(this.btnItemDurability_Click);
             // 
             // grpStats
             // 
@@ -1930,69 +2086,6 @@
             this.lstCharacterItems.Name = "lstCharacterItems";
             this.lstCharacterItems.Size = new System.Drawing.Size(218, 101);
             this.lstCharacterItems.TabIndex = 0;
-            // 
-            // numCharaMotivation
-            // 
-            this.numCharaMotivation.Location = new System.Drawing.Point(88, 72);
-            this.numCharaMotivation.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numCharaMotivation.Name = "numCharaMotivation";
-            this.numCharaMotivation.Size = new System.Drawing.Size(96, 20);
-            this.numCharaMotivation.TabIndex = 10;
-            // 
-            // numCharaExp
-            // 
-            this.numCharaExp.Location = new System.Drawing.Point(88, 48);
-            this.numCharaExp.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numCharaExp.Name = "numCharaExp";
-            this.numCharaExp.Size = new System.Drawing.Size(96, 20);
-            this.numCharaExp.TabIndex = 10;
-            // 
-            // lblLevel
-            // 
-            this.lblLevel.AutoSize = true;
-            this.lblLevel.Location = new System.Drawing.Point(8, 24);
-            this.lblLevel.Name = "lblLevel";
-            this.lblLevel.Size = new System.Drawing.Size(36, 13);
-            this.lblLevel.TabIndex = 7;
-            this.lblLevel.Text = "Level:";
-            // 
-            // numCharaLevel
-            // 
-            this.numCharaLevel.Location = new System.Drawing.Point(88, 24);
-            this.numCharaLevel.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numCharaLevel.Name = "numCharaLevel";
-            this.numCharaLevel.Size = new System.Drawing.Size(96, 20);
-            this.numCharaLevel.TabIndex = 10;
-            // 
-            // lblExp
-            // 
-            this.lblExp.AutoSize = true;
-            this.lblExp.Location = new System.Drawing.Point(8, 48);
-            this.lblExp.Name = "lblExp";
-            this.lblExp.Size = new System.Drawing.Size(25, 13);
-            this.lblExp.TabIndex = 8;
-            this.lblExp.Text = "Exp";
-            // 
-            // lblMotivation
-            // 
-            this.lblMotivation.AutoSize = true;
-            this.lblMotivation.Location = new System.Drawing.Point(8, 72);
-            this.lblMotivation.Name = "lblMotivation";
-            this.lblMotivation.Size = new System.Drawing.Size(59, 13);
-            this.lblMotivation.TabIndex = 9;
-            this.lblMotivation.Text = "Motivation:";
             // 
             // tabSkills
             // 
@@ -2564,6 +2657,92 @@
             this.tabClassExp.Text = "Class Exp";
             this.tabClassExp.UseVisualStyleBackColor = true;
             // 
+            // groupBox12
+            // 
+            this.groupBox12.Controls.Add(this.lblCurrentClassLevel);
+            this.groupBox12.Controls.Add(this.lblCurrentClassExp);
+            this.groupBox12.Controls.Add(this.cboClass);
+            this.groupBox12.Controls.Add(this.numCurrentClassLevel);
+            this.groupBox12.Controls.Add(this.numCurrentClassExp);
+            this.groupBox12.Location = new System.Drawing.Point(320, 48);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(200, 100);
+            this.groupBox12.TabIndex = 10;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "Current Class";
+            // 
+            // lblCurrentClassLevel
+            // 
+            this.lblCurrentClassLevel.AutoSize = true;
+            this.lblCurrentClassLevel.Location = new System.Drawing.Point(8, 72);
+            this.lblCurrentClassLevel.Name = "lblCurrentClassLevel";
+            this.lblCurrentClassLevel.Size = new System.Drawing.Size(36, 13);
+            this.lblCurrentClassLevel.TabIndex = 6;
+            this.lblCurrentClassLevel.Text = "Level:";
+            // 
+            // lblCurrentClassExp
+            // 
+            this.lblCurrentClassExp.AutoSize = true;
+            this.lblCurrentClassExp.Location = new System.Drawing.Point(8, 48);
+            this.lblCurrentClassExp.Name = "lblCurrentClassExp";
+            this.lblCurrentClassExp.Size = new System.Drawing.Size(28, 13);
+            this.lblCurrentClassExp.TabIndex = 7;
+            this.lblCurrentClassExp.Text = "Exp:";
+            // 
+            // cboClass
+            // 
+            this.cboClass.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboClass.Enabled = false;
+            this.cboClass.FormattingEnabled = true;
+            this.cboClass.Location = new System.Drawing.Point(8, 16);
+            this.cboClass.Name = "cboClass";
+            this.cboClass.Size = new System.Drawing.Size(176, 21);
+            this.cboClass.TabIndex = 35;
+            // 
+            // numCurrentClassLevel
+            // 
+            this.numCurrentClassLevel.Location = new System.Drawing.Point(112, 72);
+            this.numCurrentClassLevel.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.numCurrentClassLevel.Name = "numCurrentClassLevel";
+            this.numCurrentClassLevel.Size = new System.Drawing.Size(72, 20);
+            this.numCurrentClassLevel.TabIndex = 5;
+            this.numCurrentClassLevel.ValueChanged += new System.EventHandler(this.CurrentClass_ValueChanged);
+            // 
+            // numCurrentClassExp
+            // 
+            this.numCurrentClassExp.Location = new System.Drawing.Point(112, 48);
+            this.numCurrentClassExp.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numCurrentClassExp.Name = "numCurrentClassExp";
+            this.numCurrentClassExp.Size = new System.Drawing.Size(72, 20);
+            this.numCurrentClassExp.TabIndex = 3;
+            this.numCurrentClassExp.ValueChanged += new System.EventHandler(this.CurrentClass_ValueChanged);
+            // 
+            // label23
+            // 
+            this.label23.Location = new System.Drawing.Point(320, 8);
+            this.label23.Name = "label23";
+            this.label23.Size = new System.Drawing.Size(216, 32);
+            this.label23.TabIndex = 9;
+            this.label23.Text = "Note: all changes in this tab are auto-saved. ★ = Special Class";
+            // 
+            // btnMaxClassExp
+            // 
+            this.btnMaxClassExp.Location = new System.Drawing.Point(320, 312);
+            this.btnMaxClassExp.Name = "btnMaxClassExp";
+            this.btnMaxClassExp.Size = new System.Drawing.Size(96, 23);
+            this.btnMaxClassExp.TabIndex = 8;
+            this.btnMaxClassExp.Text = "Maximize Exp";
+            this.btnMaxClassExp.UseVisualStyleBackColor = true;
+            this.btnMaxClassExp.Click += new System.EventHandler(this.btnMaxClassExp_Click);
+            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.lblClassLevel);
@@ -2629,32 +2808,6 @@
             this.btnSaveClassChanges.Text = "Set Values";
             this.btnSaveClassChanges.UseVisualStyleBackColor = true;
             this.btnSaveClassChanges.Click += new System.EventHandler(this.btnSetClassValues_Click);
-            // 
-            // numCurrentClassLevel
-            // 
-            this.numCurrentClassLevel.Location = new System.Drawing.Point(112, 72);
-            this.numCurrentClassLevel.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numCurrentClassLevel.Name = "numCurrentClassLevel";
-            this.numCurrentClassLevel.Size = new System.Drawing.Size(72, 20);
-            this.numCurrentClassLevel.TabIndex = 5;
-            this.numCurrentClassLevel.ValueChanged += new System.EventHandler(this.CurrentClass_ValueChanged);
-            // 
-            // numCurrentClassExp
-            // 
-            this.numCurrentClassExp.Location = new System.Drawing.Point(112, 48);
-            this.numCurrentClassExp.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numCurrentClassExp.Name = "numCurrentClassExp";
-            this.numCurrentClassExp.Size = new System.Drawing.Size(72, 20);
-            this.numCurrentClassExp.TabIndex = 3;
-            this.numCurrentClassExp.ValueChanged += new System.EventHandler(this.CurrentClass_ValueChanged);
             // 
             // lsvClassExp
             // 
@@ -2731,6 +2884,16 @@
             this.tabAbilities.Text = "Abilities";
             this.tabAbilities.UseVisualStyleBackColor = true;
             // 
+            // btnUnlockAllAbilities
+            // 
+            this.btnUnlockAllAbilities.Location = new System.Drawing.Point(496, 320);
+            this.btnUnlockAllAbilities.Name = "btnUnlockAllAbilities";
+            this.btnUnlockAllAbilities.Size = new System.Drawing.Size(120, 23);
+            this.btnUnlockAllAbilities.TabIndex = 39;
+            this.btnUnlockAllAbilities.Text = "All Abilities";
+            this.btnUnlockAllAbilities.UseVisualStyleBackColor = true;
+            this.btnUnlockAllAbilities.Click += new System.EventHandler(this.btnUnlockAllPerks_Click);
+            // 
             // chkAbilities
             // 
             this.chkAbilities.ColumnWidth = 160;
@@ -2752,6 +2915,16 @@
             this.tabCombatArts.TabIndex = 6;
             this.tabCombatArts.Text = "Combat Arts";
             this.tabCombatArts.UseVisualStyleBackColor = true;
+            // 
+            // btnUnlockAllBattleSkills
+            // 
+            this.btnUnlockAllBattleSkills.Location = new System.Drawing.Point(496, 320);
+            this.btnUnlockAllBattleSkills.Name = "btnUnlockAllBattleSkills";
+            this.btnUnlockAllBattleSkills.Size = new System.Drawing.Size(120, 23);
+            this.btnUnlockAllBattleSkills.TabIndex = 39;
+            this.btnUnlockAllBattleSkills.Text = "All Combat Arts";
+            this.btnUnlockAllBattleSkills.UseVisualStyleBackColor = true;
+            this.btnUnlockAllBattleSkills.Click += new System.EventHandler(this.btnUnlockAllCombatArts_Click);
             // 
             // chkCombatArts
             // 
@@ -2987,14 +3160,16 @@
             this.tabQuest.Text = "Quest";
             this.tabQuest.UseVisualStyleBackColor = true;
             // 
-            // cboQuestState
+            // grpQuestEditor
             // 
-            this.cboQuestState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cboQuestState.FormattingEnabled = true;
-            this.cboQuestState.Location = new System.Drawing.Point(112, 24);
-            this.cboQuestState.Name = "cboQuestState";
-            this.cboQuestState.Size = new System.Drawing.Size(136, 21);
-            this.cboQuestState.TabIndex = 9;
+            this.grpQuestEditor.Controls.Add(this.btnQuestSetState);
+            this.grpQuestEditor.Controls.Add(this.cboQuestState);
+            this.grpQuestEditor.Location = new System.Drawing.Point(328, 8);
+            this.grpQuestEditor.Name = "grpQuestEditor";
+            this.grpQuestEditor.Size = new System.Drawing.Size(256, 56);
+            this.grpQuestEditor.TabIndex = 10;
+            this.grpQuestEditor.TabStop = false;
+            this.grpQuestEditor.Text = "Quest Editor";
             // 
             // btnQuestSetState
             // 
@@ -3005,6 +3180,15 @@
             this.btnQuestSetState.Text = "Set State to:";
             this.btnQuestSetState.UseVisualStyleBackColor = true;
             this.btnQuestSetState.Click += new System.EventHandler(this.btnQuestSetState_Click);
+            // 
+            // cboQuestState
+            // 
+            this.cboQuestState.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboQuestState.FormattingEnabled = true;
+            this.cboQuestState.Location = new System.Drawing.Point(112, 24);
+            this.cboQuestState.Name = "cboQuestState";
+            this.cboQuestState.Size = new System.Drawing.Size(136, 21);
+            this.cboQuestState.TabIndex = 9;
             // 
             // grpQuestList
             // 
@@ -3044,6 +3228,248 @@
             // 
             this.clmnQuestState.Text = "State";
             this.clmnQuestState.Width = 49;
+            // 
+            // tabTalk
+            // 
+            this.tabTalk.Controls.Add(this.lblSupportTalkNote);
+            this.tabTalk.Controls.Add(this.grpTalkEditor);
+            this.tabTalk.Controls.Add(this.grpTalkList);
+            this.tabTalk.Location = new System.Drawing.Point(4, 22);
+            this.tabTalk.Name = "tabTalk";
+            this.tabTalk.Size = new System.Drawing.Size(912, 633);
+            this.tabTalk.TabIndex = 6;
+            this.tabTalk.Text = "Support Talks";
+            this.tabTalk.UseVisualStyleBackColor = true;
+            // 
+            // lblSupportTalkNote
+            // 
+            this.lblSupportTalkNote.AutoSize = true;
+            this.lblSupportTalkNote.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblSupportTalkNote.Location = new System.Drawing.Point(336, 72);
+            this.lblSupportTalkNote.Name = "lblSupportTalkNote";
+            this.lblSupportTalkNote.Size = new System.Drawing.Size(37, 13);
+            this.lblSupportTalkNote.TabIndex = 11;
+            this.lblSupportTalkNote.Text = "Note:";
+            // 
+            // grpTalkEditor
+            // 
+            this.grpTalkEditor.Controls.Add(this.numTalkSetState);
+            this.grpTalkEditor.Controls.Add(this.btnTalkSetState);
+            this.grpTalkEditor.Location = new System.Drawing.Point(328, 8);
+            this.grpTalkEditor.Name = "grpTalkEditor";
+            this.grpTalkEditor.Size = new System.Drawing.Size(256, 56);
+            this.grpTalkEditor.TabIndex = 10;
+            this.grpTalkEditor.TabStop = false;
+            this.grpTalkEditor.Text = "Talk Editor";
+            // 
+            // numTalkSetState
+            // 
+            this.numTalkSetState.Location = new System.Drawing.Point(112, 24);
+            this.numTalkSetState.Maximum = new decimal(new int[] {
+            65535,
+            0,
+            0,
+            0});
+            this.numTalkSetState.Name = "numTalkSetState";
+            this.numTalkSetState.Size = new System.Drawing.Size(136, 20);
+            this.numTalkSetState.TabIndex = 10;
+            // 
+            // btnTalkSetState
+            // 
+            this.btnTalkSetState.Location = new System.Drawing.Point(8, 24);
+            this.btnTalkSetState.Name = "btnTalkSetState";
+            this.btnTalkSetState.Size = new System.Drawing.Size(96, 23);
+            this.btnTalkSetState.TabIndex = 9;
+            this.btnTalkSetState.Text = "Set State to:";
+            this.btnTalkSetState.UseVisualStyleBackColor = true;
+            this.btnTalkSetState.Click += new System.EventHandler(this.btnTalkSetState_Click);
+            // 
+            // grpTalkList
+            // 
+            this.grpTalkList.Controls.Add(this.lsvTalk);
+            this.grpTalkList.Location = new System.Drawing.Point(8, 8);
+            this.grpTalkList.Name = "grpTalkList";
+            this.grpTalkList.Size = new System.Drawing.Size(312, 616);
+            this.grpTalkList.TabIndex = 7;
+            this.grpTalkList.TabStop = false;
+            this.grpTalkList.Text = "Talk List";
+            // 
+            // lsvTalk
+            // 
+            this.lsvTalk.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader3,
+            this.columnHeader4});
+            this.lsvTalk.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lsvTalk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lsvTalk.FullRowSelect = true;
+            this.lsvTalk.GridLines = true;
+            this.lsvTalk.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
+            this.lsvTalk.HideSelection = false;
+            this.lsvTalk.Location = new System.Drawing.Point(3, 16);
+            this.lsvTalk.Name = "lsvTalk";
+            this.lsvTalk.Size = new System.Drawing.Size(306, 597);
+            this.lsvTalk.TabIndex = 0;
+            this.lsvTalk.UseCompatibleStateImageBehavior = false;
+            this.lsvTalk.View = System.Windows.Forms.View.Details;
+            this.lsvTalk.SelectedIndexChanged += new System.EventHandler(this.lsvTalk_SelectedIndexChanged);
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "Name";
+            this.columnHeader3.Width = 252;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "State";
+            this.columnHeader4.Width = 49;
+            // 
+            // tabTest
+            // 
+            this.tabTest.Controls.Add(this.tabControl3);
+            this.tabTest.Location = new System.Drawing.Point(4, 22);
+            this.tabTest.Name = "tabTest";
+            this.tabTest.Size = new System.Drawing.Size(912, 633);
+            this.tabTest.TabIndex = 5;
+            this.tabTest.Text = "Test";
+            this.tabTest.UseVisualStyleBackColor = true;
+            // 
+            // tabControl3
+            // 
+            this.tabControl3.Controls.Add(this.tabPage1);
+            this.tabControl3.Controls.Add(this.tabPage2);
+            this.tabControl3.Controls.Add(this.tabPage3);
+            this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabControl3.Location = new System.Drawing.Point(0, 0);
+            this.tabControl3.Name = "tabControl3";
+            this.tabControl3.SelectedIndex = 0;
+            this.tabControl3.Size = new System.Drawing.Size(912, 633);
+            this.tabControl3.TabIndex = 6;
+            // 
+            // tabPage1
+            // 
+            this.tabPage1.Controls.Add(this.txtCharacterDBDebug);
+            this.tabPage1.Controls.Add(this.groupBox10);
+            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(904, 607);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "CharacterDB";
+            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // txtCharacterDBDebug
+            // 
+            this.txtCharacterDBDebug.Location = new System.Drawing.Point(216, 8);
+            this.txtCharacterDBDebug.Multiline = true;
+            this.txtCharacterDBDebug.Name = "txtCharacterDBDebug";
+            this.txtCharacterDBDebug.ReadOnly = true;
+            this.txtCharacterDBDebug.Size = new System.Drawing.Size(680, 592);
+            this.txtCharacterDBDebug.TabIndex = 4;
+            // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.lstCharacterDB);
+            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox10.Location = new System.Drawing.Point(3, 3);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(208, 601);
+            this.groupBox10.TabIndex = 3;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Character Database";
+            // 
+            // lstCharacterDB
+            // 
+            this.lstCharacterDB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstCharacterDB.FormattingEnabled = true;
+            this.lstCharacterDB.Location = new System.Drawing.Point(3, 16);
+            this.lstCharacterDB.Name = "lstCharacterDB";
+            this.lstCharacterDB.Size = new System.Drawing.Size(202, 582);
+            this.lstCharacterDB.TabIndex = 0;
+            this.lstCharacterDB.SelectedIndexChanged += new System.EventHandler(this.lstCharacterDB_SelectedIndexChanged);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.txtClassDBDebug);
+            this.tabPage2.Controls.Add(this.groupBox11);
+            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(904, 607);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "ClassDB";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // txtClassDBDebug
+            // 
+            this.txtClassDBDebug.Location = new System.Drawing.Point(216, 8);
+            this.txtClassDBDebug.Multiline = true;
+            this.txtClassDBDebug.Name = "txtClassDBDebug";
+            this.txtClassDBDebug.ReadOnly = true;
+            this.txtClassDBDebug.Size = new System.Drawing.Size(680, 592);
+            this.txtClassDBDebug.TabIndex = 5;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.lstClassDB);
+            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox11.Location = new System.Drawing.Point(3, 3);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(208, 601);
+            this.groupBox11.TabIndex = 4;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "Class Database";
+            // 
+            // lstClassDB
+            // 
+            this.lstClassDB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstClassDB.FormattingEnabled = true;
+            this.lstClassDB.Location = new System.Drawing.Point(3, 16);
+            this.lstClassDB.Name = "lstClassDB";
+            this.lstClassDB.Size = new System.Drawing.Size(202, 582);
+            this.lstClassDB.TabIndex = 0;
+            this.lstClassDB.SelectedIndexChanged += new System.EventHandler(this.lstClassDB_SelectedIndexChanged);
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.txtItemDBDebug);
+            this.tabPage3.Controls.Add(this.groupBox17);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage3.Size = new System.Drawing.Size(904, 607);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "ItemDB";
+            this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // txtItemDBDebug
+            // 
+            this.txtItemDBDebug.Location = new System.Drawing.Point(216, 8);
+            this.txtItemDBDebug.Multiline = true;
+            this.txtItemDBDebug.Name = "txtItemDBDebug";
+            this.txtItemDBDebug.ReadOnly = true;
+            this.txtItemDBDebug.Size = new System.Drawing.Size(680, 592);
+            this.txtItemDBDebug.TabIndex = 6;
+            // 
+            // groupBox17
+            // 
+            this.groupBox17.Controls.Add(this.lstItemDB);
+            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Left;
+            this.groupBox17.Location = new System.Drawing.Point(3, 3);
+            this.groupBox17.Name = "groupBox17";
+            this.groupBox17.Size = new System.Drawing.Size(208, 601);
+            this.groupBox17.TabIndex = 5;
+            this.groupBox17.TabStop = false;
+            this.groupBox17.Text = "Class Database";
+            // 
+            // lstItemDB
+            // 
+            this.lstItemDB.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.lstItemDB.FormattingEnabled = true;
+            this.lstItemDB.Location = new System.Drawing.Point(3, 16);
+            this.lstItemDB.Name = "lstItemDB";
+            this.lstItemDB.Size = new System.Drawing.Size(202, 582);
+            this.lstItemDB.TabIndex = 0;
+            this.lstItemDB.SelectedIndexChanged += new System.EventHandler(this.lstItemDB_SelectedIndexChanged);
             // 
             // mnuMain
             // 
@@ -3086,427 +3512,23 @@
             this.mnuExit.Text = "E&xit";
             this.mnuExit.Click += new System.EventHandler(this.mnuExit_Click);
             // 
-            // tabTest
-            // 
-            this.tabTest.Controls.Add(this.tabControl3);
-            this.tabTest.Location = new System.Drawing.Point(4, 22);
-            this.tabTest.Name = "tabTest";
-            this.tabTest.Size = new System.Drawing.Size(912, 633);
-            this.tabTest.TabIndex = 5;
-            this.tabTest.Text = "Test";
-            this.tabTest.UseVisualStyleBackColor = true;
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.lstCharacterDB);
-            this.groupBox10.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox10.Location = new System.Drawing.Point(3, 3);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(208, 601);
-            this.groupBox10.TabIndex = 3;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Character Database";
-            // 
-            // lstCharacterDB
-            // 
-            this.lstCharacterDB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstCharacterDB.FormattingEnabled = true;
-            this.lstCharacterDB.Location = new System.Drawing.Point(3, 16);
-            this.lstCharacterDB.Name = "lstCharacterDB";
-            this.lstCharacterDB.Size = new System.Drawing.Size(202, 582);
-            this.lstCharacterDB.TabIndex = 0;
-            this.lstCharacterDB.SelectedIndexChanged += new System.EventHandler(this.lstCharacterDB_SelectedIndexChanged);
-            // 
-            // txtCharacterDBDebug
-            // 
-            this.txtCharacterDBDebug.Location = new System.Drawing.Point(216, 8);
-            this.txtCharacterDBDebug.Multiline = true;
-            this.txtCharacterDBDebug.Name = "txtCharacterDBDebug";
-            this.txtCharacterDBDebug.ReadOnly = true;
-            this.txtCharacterDBDebug.Size = new System.Drawing.Size(680, 592);
-            this.txtCharacterDBDebug.TabIndex = 4;
-            // 
-            // btnMaxClassExp
-            // 
-            this.btnMaxClassExp.Location = new System.Drawing.Point(320, 312);
-            this.btnMaxClassExp.Name = "btnMaxClassExp";
-            this.btnMaxClassExp.Size = new System.Drawing.Size(96, 23);
-            this.btnMaxClassExp.TabIndex = 8;
-            this.btnMaxClassExp.Text = "Maximize Exp";
-            this.btnMaxClassExp.UseVisualStyleBackColor = true;
-            this.btnMaxClassExp.Click += new System.EventHandler(this.btnMaxClassExp_Click);
-            // 
-            // label23
-            // 
-            this.label23.Location = new System.Drawing.Point(320, 8);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(216, 32);
-            this.label23.TabIndex = 9;
-            this.label23.Text = "Note: all changes in this tab are auto-saved. ★ = Special Class";
-            // 
-            // groupBox12
-            // 
-            this.groupBox12.Controls.Add(this.lblCurrentClassLevel);
-            this.groupBox12.Controls.Add(this.lblCurrentClassExp);
-            this.groupBox12.Controls.Add(this.cboClass);
-            this.groupBox12.Controls.Add(this.numCurrentClassLevel);
-            this.groupBox12.Controls.Add(this.numCurrentClassExp);
-            this.groupBox12.Location = new System.Drawing.Point(320, 48);
-            this.groupBox12.Name = "groupBox12";
-            this.groupBox12.Size = new System.Drawing.Size(200, 100);
-            this.groupBox12.TabIndex = 10;
-            this.groupBox12.TabStop = false;
-            this.groupBox12.Text = "Current Class";
-            // 
-            // lblCurrentClassLevel
-            // 
-            this.lblCurrentClassLevel.AutoSize = true;
-            this.lblCurrentClassLevel.Location = new System.Drawing.Point(8, 72);
-            this.lblCurrentClassLevel.Name = "lblCurrentClassLevel";
-            this.lblCurrentClassLevel.Size = new System.Drawing.Size(36, 13);
-            this.lblCurrentClassLevel.TabIndex = 6;
-            this.lblCurrentClassLevel.Text = "Level:";
-            // 
-            // lblCurrentClassExp
-            // 
-            this.lblCurrentClassExp.AutoSize = true;
-            this.lblCurrentClassExp.Location = new System.Drawing.Point(8, 48);
-            this.lblCurrentClassExp.Name = "lblCurrentClassExp";
-            this.lblCurrentClassExp.Size = new System.Drawing.Size(28, 13);
-            this.lblCurrentClassExp.TabIndex = 7;
-            this.lblCurrentClassExp.Text = "Exp:";
-            // 
-            // tabTalk
-            // 
-            this.tabTalk.Controls.Add(this.lblSupportTalkNote);
-            this.tabTalk.Controls.Add(this.grpTalkEditor);
-            this.tabTalk.Controls.Add(this.grpTalkList);
-            this.tabTalk.Location = new System.Drawing.Point(4, 22);
-            this.tabTalk.Name = "tabTalk";
-            this.tabTalk.Size = new System.Drawing.Size(912, 633);
-            this.tabTalk.TabIndex = 6;
-            this.tabTalk.Text = "Support Talks";
-            this.tabTalk.UseVisualStyleBackColor = true;
-            // 
-            // grpTalkList
-            // 
-            this.grpTalkList.Controls.Add(this.lsvTalk);
-            this.grpTalkList.Location = new System.Drawing.Point(8, 8);
-            this.grpTalkList.Name = "grpTalkList";
-            this.grpTalkList.Size = new System.Drawing.Size(312, 616);
-            this.grpTalkList.TabIndex = 7;
-            this.grpTalkList.TabStop = false;
-            this.grpTalkList.Text = "Talk List";
-            // 
-            // lsvTalk
-            // 
-            this.lsvTalk.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader3,
-            this.columnHeader4});
-            this.lsvTalk.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lsvTalk.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lsvTalk.FullRowSelect = true;
-            this.lsvTalk.GridLines = true;
-            this.lsvTalk.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.lsvTalk.HideSelection = false;
-            this.lsvTalk.Location = new System.Drawing.Point(3, 16);
-            this.lsvTalk.Name = "lsvTalk";
-            this.lsvTalk.Size = new System.Drawing.Size(306, 597);
-            this.lsvTalk.TabIndex = 0;
-            this.lsvTalk.UseCompatibleStateImageBehavior = false;
-            this.lsvTalk.View = System.Windows.Forms.View.Details;
-            this.lsvTalk.SelectedIndexChanged += new System.EventHandler(this.lsvTalk_SelectedIndexChanged);
-            // 
-            // columnHeader3
-            // 
-            this.columnHeader3.Text = "Name";
-            this.columnHeader3.Width = 252;
-            // 
-            // columnHeader4
-            // 
-            this.columnHeader4.Text = "State";
-            this.columnHeader4.Width = 49;
-            // 
-            // btnTalkSetState
-            // 
-            this.btnTalkSetState.Location = new System.Drawing.Point(8, 24);
-            this.btnTalkSetState.Name = "btnTalkSetState";
-            this.btnTalkSetState.Size = new System.Drawing.Size(96, 23);
-            this.btnTalkSetState.TabIndex = 9;
-            this.btnTalkSetState.Text = "Set State to:";
-            this.btnTalkSetState.UseVisualStyleBackColor = true;
-            this.btnTalkSetState.Click += new System.EventHandler(this.btnTalkSetState_Click);
-            // 
-            // grpQuestEditor
-            // 
-            this.grpQuestEditor.Controls.Add(this.btnQuestSetState);
-            this.grpQuestEditor.Controls.Add(this.cboQuestState);
-            this.grpQuestEditor.Location = new System.Drawing.Point(328, 8);
-            this.grpQuestEditor.Name = "grpQuestEditor";
-            this.grpQuestEditor.Size = new System.Drawing.Size(256, 56);
-            this.grpQuestEditor.TabIndex = 10;
-            this.grpQuestEditor.TabStop = false;
-            this.grpQuestEditor.Text = "Quest Editor";
-            // 
-            // grpTalkEditor
-            // 
-            this.grpTalkEditor.Controls.Add(this.numTalkSetState);
-            this.grpTalkEditor.Controls.Add(this.btnTalkSetState);
-            this.grpTalkEditor.Location = new System.Drawing.Point(328, 8);
-            this.grpTalkEditor.Name = "grpTalkEditor";
-            this.grpTalkEditor.Size = new System.Drawing.Size(256, 56);
-            this.grpTalkEditor.TabIndex = 10;
-            this.grpTalkEditor.TabStop = false;
-            this.grpTalkEditor.Text = "Talk Editor";
-            // 
-            // numTalkSetState
-            // 
-            this.numTalkSetState.Location = new System.Drawing.Point(112, 24);
-            this.numTalkSetState.Maximum = new decimal(new int[] {
-            65535,
-            0,
-            0,
-            0});
-            this.numTalkSetState.Name = "numTalkSetState";
-            this.numTalkSetState.Size = new System.Drawing.Size(136, 20);
-            this.numTalkSetState.TabIndex = 10;
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.lstClassDB);
-            this.groupBox11.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox11.Location = new System.Drawing.Point(3, 3);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(208, 601);
-            this.groupBox11.TabIndex = 4;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "Class Database";
-            // 
-            // lstClassDB
-            // 
-            this.lstClassDB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstClassDB.FormattingEnabled = true;
-            this.lstClassDB.Location = new System.Drawing.Point(3, 16);
-            this.lstClassDB.Name = "lstClassDB";
-            this.lstClassDB.Size = new System.Drawing.Size(202, 582);
-            this.lstClassDB.TabIndex = 0;
-            this.lstClassDB.SelectedIndexChanged += new System.EventHandler(this.lstClassDB_SelectedIndexChanged);
-            // 
-            // txtClassDBDebug
-            // 
-            this.txtClassDBDebug.Location = new System.Drawing.Point(216, 8);
-            this.txtClassDBDebug.Multiline = true;
-            this.txtClassDBDebug.Name = "txtClassDBDebug";
-            this.txtClassDBDebug.ReadOnly = true;
-            this.txtClassDBDebug.Size = new System.Drawing.Size(680, 592);
-            this.txtClassDBDebug.TabIndex = 5;
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(8, 96);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(34, 13);
-            this.label21.TabIndex = 9;
-            this.label21.Text = "RNG:";
-            // 
-            // numRNG
-            // 
-            this.numRNG.Location = new System.Drawing.Point(88, 96);
-            this.numRNG.Maximum = new decimal(new int[] {
-            255,
-            0,
-            0,
-            0});
-            this.numRNG.Name = "numRNG";
-            this.numRNG.Size = new System.Drawing.Size(96, 20);
-            this.numRNG.TabIndex = 10;
-            // 
-            // lblSupportTalkNote
-            // 
-            this.lblSupportTalkNote.AutoSize = true;
-            this.lblSupportTalkNote.Font = new System.Drawing.Font("Consolas", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSupportTalkNote.Location = new System.Drawing.Point(336, 72);
-            this.lblSupportTalkNote.Name = "lblSupportTalkNote";
-            this.lblSupportTalkNote.Size = new System.Drawing.Size(37, 13);
-            this.lblSupportTalkNote.TabIndex = 11;
-            this.lblSupportTalkNote.Text = "Note:";
-            // 
-            // btnItemDurability
-            // 
-            this.btnItemDurability.Location = new System.Drawing.Point(8, 288);
-            this.btnItemDurability.Name = "btnItemDurability";
-            this.btnItemDurability.Size = new System.Drawing.Size(136, 23);
-            this.btnItemDurability.TabIndex = 36;
-            this.btnItemDurability.Text = "Set Item Durability to 100";
-            this.btnItemDurability.UseVisualStyleBackColor = true;
-            this.btnItemDurability.Click += new System.EventHandler(this.btnItemDurability_Click);
-            // 
-            // groupBox14
-            // 
-            this.groupBox14.Controls.Add(this.lblCharaBattalion);
-            this.groupBox14.Controls.Add(this.lblMotivation);
-            this.groupBox14.Controls.Add(this.cboCharaBattalion);
-            this.groupBox14.Controls.Add(this.lblExp);
-            this.groupBox14.Controls.Add(this.label21);
-            this.groupBox14.Controls.Add(this.numCharaLevel);
-            this.groupBox14.Controls.Add(this.lblLevel);
-            this.groupBox14.Controls.Add(this.numCharaExp);
-            this.groupBox14.Controls.Add(this.numCharaMotivation);
-            this.groupBox14.Controls.Add(this.numRNG);
-            this.groupBox14.Location = new System.Drawing.Point(8, 8);
-            this.groupBox14.Name = "groupBox14";
-            this.groupBox14.Size = new System.Drawing.Size(224, 144);
-            this.groupBox14.TabIndex = 37;
-            this.groupBox14.TabStop = false;
-            this.groupBox14.Text = "Main Stats";
-            // 
-            // btnAddEssentialItems
-            // 
-            this.btnAddEssentialItems.Location = new System.Drawing.Point(24, 48);
-            this.btnAddEssentialItems.Name = "btnAddEssentialItems";
-            this.btnAddEssentialItems.Size = new System.Drawing.Size(144, 23);
-            this.btnAddEssentialItems.TabIndex = 9;
-            this.btnAddEssentialItems.Text = "Add Essential Items";
-            this.btnAddEssentialItems.UseVisualStyleBackColor = true;
-            this.btnAddEssentialItems.Click += new System.EventHandler(this.btnAddEssentialItems_Click);
-            // 
-            // groupBox16
-            // 
-            this.groupBox16.Controls.Add(this.rdoMaxWeapon);
-            this.groupBox16.Controls.Add(this.rdoItems100);
-            this.groupBox16.Controls.Add(this.rdoItemsMax);
-            this.groupBox16.Controls.Add(this.btnSetDurability);
-            this.groupBox16.Controls.Add(this.btnSortItems);
-            this.groupBox16.Controls.Add(this.btnAddEssentialItems);
-            this.groupBox16.Location = new System.Drawing.Point(280, 168);
-            this.groupBox16.Name = "groupBox16";
-            this.groupBox16.Size = new System.Drawing.Size(200, 160);
-            this.groupBox16.TabIndex = 10;
-            this.groupBox16.TabStop = false;
-            this.groupBox16.Text = "Item Tools";
-            // 
-            // btnSetDurability
-            // 
-            this.btnSetDurability.Location = new System.Drawing.Point(24, 80);
-            this.btnSetDurability.Name = "btnSetDurability";
-            this.btnSetDurability.Size = new System.Drawing.Size(144, 23);
-            this.btnSetDurability.TabIndex = 10;
-            this.btnSetDurability.Text = "Set Durability to:";
-            this.btnSetDurability.UseVisualStyleBackColor = true;
-            this.btnSetDurability.Click += new System.EventHandler(this.btnSetDurability_Click);
-            // 
-            // rdoItemsMax
-            // 
-            this.rdoItemsMax.AutoSize = true;
-            this.rdoItemsMax.Checked = true;
-            this.rdoItemsMax.Location = new System.Drawing.Point(8, 112);
-            this.rdoItemsMax.Name = "rdoItemsMax";
-            this.rdoItemsMax.Size = new System.Drawing.Size(45, 17);
-            this.rdoItemsMax.TabIndex = 11;
-            this.rdoItemsMax.TabStop = true;
-            this.rdoItemsMax.Text = "Max";
-            this.rdoItemsMax.UseVisualStyleBackColor = true;
-            // 
-            // rdoItems100
-            // 
-            this.rdoItems100.AutoSize = true;
-            this.rdoItems100.Location = new System.Drawing.Point(56, 112);
-            this.rdoItems100.Name = "rdoItems100";
-            this.rdoItems100.Size = new System.Drawing.Size(83, 17);
-            this.rdoItems100.TabIndex = 12;
-            this.rdoItems100.TabStop = true;
-            this.rdoItems100.Text = "100 (Infinite)";
-            this.rdoItems100.UseVisualStyleBackColor = true;
-            // 
-            // rdoMaxWeapon
-            // 
-            this.rdoMaxWeapon.AutoSize = true;
-            this.rdoMaxWeapon.Location = new System.Drawing.Point(8, 136);
-            this.rdoMaxWeapon.Name = "rdoMaxWeapon";
-            this.rdoMaxWeapon.Size = new System.Drawing.Size(164, 17);
-            this.rdoMaxWeapon.TabIndex = 13;
-            this.rdoMaxWeapon.TabStop = true;
-            this.rdoMaxWeapon.Text = "Weapon to 100, other to Max";
-            this.rdoMaxWeapon.UseVisualStyleBackColor = true;
-            // 
-            // tabControl3
-            // 
-            this.tabControl3.Controls.Add(this.tabPage1);
-            this.tabControl3.Controls.Add(this.tabPage2);
-            this.tabControl3.Controls.Add(this.tabPage3);
-            this.tabControl3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl3.Location = new System.Drawing.Point(0, 0);
-            this.tabControl3.Name = "tabControl3";
-            this.tabControl3.SelectedIndex = 0;
-            this.tabControl3.Size = new System.Drawing.Size(912, 633);
-            this.tabControl3.TabIndex = 6;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.txtCharacterDBDebug);
-            this.tabPage1.Controls.Add(this.groupBox10);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(904, 607);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "CharacterDB";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Controls.Add(this.txtClassDBDebug);
-            this.tabPage2.Controls.Add(this.groupBox11);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(904, 607);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "ClassDB";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.txtItemDBDebug);
-            this.tabPage3.Controls.Add(this.groupBox17);
-            this.tabPage3.Location = new System.Drawing.Point(4, 22);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage3.Size = new System.Drawing.Size(904, 607);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "ItemDB";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // groupBox17
-            // 
-            this.groupBox17.Controls.Add(this.lstItemDB);
-            this.groupBox17.Dock = System.Windows.Forms.DockStyle.Left;
-            this.groupBox17.Location = new System.Drawing.Point(3, 3);
-            this.groupBox17.Name = "groupBox17";
-            this.groupBox17.Size = new System.Drawing.Size(208, 601);
-            this.groupBox17.TabIndex = 5;
-            this.groupBox17.TabStop = false;
-            this.groupBox17.Text = "Class Database";
-            // 
-            // lstItemDB
-            // 
-            this.lstItemDB.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.lstItemDB.FormattingEnabled = true;
-            this.lstItemDB.Location = new System.Drawing.Point(3, 16);
-            this.lstItemDB.Name = "lstItemDB";
-            this.lstItemDB.Size = new System.Drawing.Size(202, 582);
-            this.lstItemDB.TabIndex = 0;
-            this.lstItemDB.SelectedIndexChanged += new System.EventHandler(this.lstItemDB_SelectedIndexChanged);
-            // 
-            // txtItemDBDebug
-            // 
-            this.txtItemDBDebug.Location = new System.Drawing.Point(216, 8);
-            this.txtItemDBDebug.Multiline = true;
-            this.txtItemDBDebug.Name = "txtItemDBDebug";
-            this.txtItemDBDebug.ReadOnly = true;
-            this.txtItemDBDebug.Size = new System.Drawing.Size(680, 592);
-            this.txtItemDBDebug.TabIndex = 6;
+            // lblCharaId
+            // 
+            this.lblCharaId.AutoSize = true;
+            this.lblCharaId.Location = new System.Drawing.Point(720, 16);
+            this.lblCharaId.Name = "lblCharaId";
+            this.lblCharaId.Size = new System.Drawing.Size(19, 13);
+            this.lblCharaId.TabIndex = 39;
+            this.lblCharaId.Text = "Id:";
+            // 
+            // cboCharaId
+            // 
+            this.cboCharaId.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboCharaId.FormattingEnabled = true;
+            this.cboCharaId.Location = new System.Drawing.Point(744, 8);
+            this.cboCharaId.Name = "cboCharaId";
+            this.cboCharaId.Size = new System.Drawing.Size(152, 21);
+            this.cboCharaId.TabIndex = 40;
             // 
             // frmMain
             // 
@@ -3563,6 +3585,8 @@
             this.grpSettings.ResumeLayout(false);
             this.grpSettings.PerformLayout();
             this.tabStorage.ResumeLayout(false);
+            this.groupBox16.ResumeLayout(false);
+            this.groupBox16.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numEditGiftItem)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numEditMiscItem)).EndInit();
             this.groupBox9.ResumeLayout(false);
@@ -3576,6 +3600,12 @@
             this.tabCharacter.PerformLayout();
             this.tabControl2.ResumeLayout(false);
             this.tabStats.ResumeLayout(false);
+            this.groupBox14.ResumeLayout(false);
+            this.groupBox14.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCharaLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCharaExp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCharaMotivation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numRNG)).EndInit();
             this.grpStats.ResumeLayout(false);
             this.grpStats.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numCharaCharm)).EndInit();
@@ -3591,9 +3621,6 @@
             this.grpPassiveSkills.ResumeLayout(false);
             this.grpBattleSkills.ResumeLayout(false);
             this.grpCharaItemList.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numCharaMotivation)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCharaExp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCharaLevel)).EndInit();
             this.tabSkills.ResumeLayout(false);
             this.grpLearnedMagic.ResumeLayout(false);
             this.grpLearnedMagic.PerformLayout();
@@ -3615,12 +3642,14 @@
             this.groupBox15.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.tabClassExp.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox12.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassLevel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassExp)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numSetClassLevel)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.numSetClassExp)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassLevel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.numCurrentClassExp)).EndInit();
             this.tabClassFlags.ResumeLayout(false);
             this.tabAbilities.ResumeLayout(false);
             this.tabCombatArts.ResumeLayout(false);
@@ -3632,33 +3661,26 @@
             ((System.ComponentModel.ISupportInitialize)(this.numBattalionExp)).EndInit();
             this.grpBattalionList.ResumeLayout(false);
             this.tabQuest.ResumeLayout(false);
+            this.grpQuestEditor.ResumeLayout(false);
             this.grpQuestList.ResumeLayout(false);
-            this.mnuMain.ResumeLayout(false);
-            this.mnuMain.PerformLayout();
-            this.tabTest.ResumeLayout(false);
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox12.ResumeLayout(false);
-            this.groupBox12.PerformLayout();
             this.tabTalk.ResumeLayout(false);
             this.tabTalk.PerformLayout();
-            this.grpTalkList.ResumeLayout(false);
-            this.grpQuestEditor.ResumeLayout(false);
             this.grpTalkEditor.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.numTalkSetState)).EndInit();
-            this.groupBox11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.numRNG)).EndInit();
-            this.groupBox14.ResumeLayout(false);
-            this.groupBox14.PerformLayout();
-            this.groupBox16.ResumeLayout(false);
-            this.groupBox16.PerformLayout();
+            this.grpTalkList.ResumeLayout(false);
+            this.tabTest.ResumeLayout(false);
             this.tabControl3.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
             this.tabPage2.ResumeLayout(false);
             this.tabPage2.PerformLayout();
+            this.groupBox11.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             this.groupBox17.ResumeLayout(false);
+            this.mnuMain.ResumeLayout(false);
+            this.mnuMain.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -3951,6 +3973,8 @@
         private System.Windows.Forms.TextBox txtItemDBDebug;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.ListBox lstItemDB;
+        private System.Windows.Forms.Label lblCharaId;
+        private System.Windows.Forms.ComboBox cboCharaId;
     }
 }
 

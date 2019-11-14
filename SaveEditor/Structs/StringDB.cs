@@ -40,31 +40,34 @@ namespace SaveEditor.Structs
             Strings = new List<string>();
         }
 
-        public void Load(string sPath)
+        public void Load(enmLanguage language, int idx)
         {
             h = new Header();
             Offsets = new List<uint>();
 
-            byte[] res = Util.GetCompressedRessourceFile(sPath);
+            MiniArchive msg = new MiniArchive();
+            msg.Load(Util.DecompressGzip(Properties.Resources.msgdata_bin));
 
-            if (res != null)
+            byte[] langdata = msg.GetEntry((int)language);
+
+            MiniArchive lang = new MiniArchive();
+            lang.Load(langdata);
+
+            using (var ms = new MemoryStream(lang.GetEntry(idx)))
+            using (var br = new BinaryReader(ms))
             {
-                using (var ms = new MemoryStream(res))
-                using (var br = new BinaryReader(ms))
+                h.Read(br);
+
+                for (int i = 0; i < h.Count; i++)
                 {
-                    h.Read(br);
+                    Offsets.Add(br.ReadUInt32());
+                }
 
-                    for (int i = 0; i < h.Count; i++)
-                    {
-                        Offsets.Add(br.ReadUInt32());
-                    }
+                for (int i = 0; i < h.Count; i++)
+                {
+                    br.SeekTo(h.Size + Offsets[i]);
 
-                    for (int i = 0; i < h.Count; i++)
-                    {
-                        br.SeekTo(h.Size + Offsets[i]);
-
-                        Strings.Add(Util.ReadCString(br, enc: Encoding.UTF8));
-                    }
+                    Strings.Add(Util.ReadCString(br, enc: Encoding.UTF8));
                 }
             }
         }
