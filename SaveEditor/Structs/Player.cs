@@ -119,6 +119,9 @@ namespace SaveEditor.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 225)]
         public byte[] GiftItems; //0x1474
 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2391)]
+        public byte[] new_game_plus_related;
+
         /*
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 5)]
         public byte[] field_1555;
