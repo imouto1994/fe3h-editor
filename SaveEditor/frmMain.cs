@@ -1078,14 +1078,22 @@ namespace SaveEditor
 
         private void SaveBattalion()
         {
-            int x = lstCharacter.SelectedIndex;
+            int x = lstBattalion.SelectedIndex;
 			
             if(x == -1 || save == null)
                 return;
 
-            short id = (short) Util.GetSortedKey<string>(cboBattalionCharacter);
-            if (id == -1) id = Database.BATTALION_COUNT;
+            short id;
+            try
+            {
+                id = (short) Util.GetSortedKey<string>(cboBattalionCharacter);
+            }
+            catch (Exception)
+            {
 
+                id = -1;
+            }
+            
             Battalion battalion = new Battalion
             {
                 CharacterId = id,
