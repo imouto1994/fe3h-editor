@@ -268,14 +268,9 @@ namespace SaveEditor
         {
             string result = "";
 
-            int Max;
-            if (MaxLength == -1)
-                Max = 4096;
-            else
-                Max = MaxLength;
+            int Max = MaxLength == -1 ? 4096 : MaxLength;
 
             long fTemp = br.BaseStream.Position;
-            byte bTemp = 0;
             int i = 0;
 
             if (lOffset > -1)
@@ -285,35 +280,27 @@ namespace SaveEditor
 
             do
             {
-                bTemp = br.ReadByte();
+                var bTemp = br.ReadByte();
                 if (bTemp == 0)
                     break;
                 i += 1;
             } while (i < Max);
 
-            if (MaxLength == -1)
-                Max = i + 1;
-            else
-                Max = MaxLength;
+            Max = MaxLength == -1 ? i + 1 : MaxLength;
 
-            if (lOffset > -1)
+            if (lOffset > -1) //jump to offset
             {
                 br.BaseStream.Seek(lOffset, SeekOrigin.Begin);
 
-                if (enc == null)
-                    result = Encoding.ASCII.GetString(br.ReadBytes(i));
-                else
-                    result = enc.GetString(br.ReadBytes(i));
+                result = enc == null ? Encoding.ASCII.GetString(br.ReadBytes(i)) : enc.GetString(br.ReadBytes(i));
 
                 br.BaseStream.Seek(fTemp, SeekOrigin.Begin);
             }
             else
             {
                 br.BaseStream.Seek(fTemp, SeekOrigin.Begin);
-                if (enc == null)
-                    result = Encoding.ASCII.GetString(br.ReadBytes(i));
-                else
-                    result = enc.GetString(br.ReadBytes(i));
+
+                result = enc == null ? Encoding.ASCII.GetString(br.ReadBytes(i)) : enc.GetString(br.ReadBytes(i));
 
                 br.BaseStream.Seek(fTemp + Max, SeekOrigin.Begin);
             }
@@ -378,6 +365,22 @@ namespace SaveEditor
             for (int i = 0; i < data.Length; i++)
             {
                 result += data[i];
+            }
+
+            return result;
+        }
+        
+        public static string Array2String(sbyte[] data, string sep = null, int start = -1, int len = -1)
+        {
+            string result = "";
+            var length = len > 0 ? len : data.Length;
+            var pos = start > 0 ? start : 0;
+
+            for (int i = 0; i < length; i++)
+            {
+                result += $"{data[pos + i]:X2}";
+                if (sep != null)
+                    result += sep;
             }
 
             return result;
@@ -463,28 +466,13 @@ namespace SaveEditor
             return result;  
         }
         
-        public static byte[] GetRessourceFile(string path)
-        {
-            byte[] result = null;
-            var assembly = Assembly.GetExecutingAssembly();
-
-            using (var stream = assembly.GetManifestResourceStream(path))
-            using (var reader = new BinaryReader(stream ?? throw new InvalidOperationException()))
-            {
-                result = reader.ReadBytes((int)stream.Length);
-            }
-
-            return result;
-        }
-        
-        public static byte[] GetCompressedRessourceFile(string path)
+        public static byte[] DecompressGzip(byte[] data)
         {
             const int BufferSize = 4096;
 
             byte[] buffer = new byte[BufferSize];
-            var assembly = Assembly.GetExecutingAssembly();
 
-            using (var stream = assembly.GetManifestResourceStream(path))
+            using (var stream = new MemoryStream(data))
             using (var decompressionStream = new GZipStream(stream, CompressionMode.Decompress))
             using (var memory = new MemoryStream())
             {
@@ -576,8 +564,47 @@ namespace SaveEditor
 
             return result;
         }
+        
+        public static sbyte[] GetFlagTableArrayS(CheckedListBox clb)
+        {
+            int count = clb.Items.Count / 8;
+
+            sbyte[] result = new sbyte[count];
+
+            for (int idx = 0; idx < count; idx++)
+            {
+                sbyte temp = 0;
+
+                for (int i = 0; i < 8; i++)
+                {
+                    var index = (idx * 8) + i;
+
+                    if (clb.GetItemChecked(index))
+                    {
+                        temp |= (sbyte)(1 << i);
+                    }
+                }
+
+                result[idx] = temp;
+            }
+
+            return result;
+        }
 
         public static void FillFlagTableArray(CheckedListBox clb, byte[] data)
+        {
+            for (int idx = 0; idx < data.Length; idx++)
+            {
+                for (int i = 0; i < 8; i++)
+                {
+                    var index = (idx * 8) + i;
+
+                    clb.SetItemChecked(index, (data[idx] & (1 << (i))) > 0);
+                }
+            }
+        }
+        
+        public static void FillFlagTableArray(CheckedListBox clb, sbyte[] data)
         {
             for (int idx = 0; idx < data.Length; idx++)
             {

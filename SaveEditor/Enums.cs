@@ -123,18 +123,31 @@ namespace SaveEditor
 
     public enum enmLanguage
     {
-        [Description("English")] en, 
-        [Description("English 2")] en2, 
-        [Description("German")] de,
-        [Description("French")] fr,
-        [Description("French 2")] fr2,
-        [Description("Spanish")] es,
-        [Description("Spanish 2")] es2,
-        [Description("Italian")] it,
-        [Description("Japanese")] jp,
-        [Description("Korean")] kr,
-        [Description("Chinese 1")] ch1,
-        [Description("Chinese 2")] ch2,
+        [Description("Japanese")] jp = 0,
+        [Description("English - USA")] en_u = 1, 
+        [Description("English - EUR")] en_e = 2, 
+        [Description("German")] de = 3,
+        [Description("French - USA")] fr_u = 4,
+        [Description("French - EUR")] fr_e = 5,
+        [Description("Spanish - USA")] es_u = 6,
+        [Description("Spanish - EUR")] es_e = 7,
+        [Description("Italian")] it = 8,
+        [Description("Korean")] kr = 9,
+        [Description("Chinese")] chn = 10,
+        [Description("Taiwanese")] twn = 11,
+    }
+    
+    public enum enmItemTypes
+    {
+        Weapon = 0,
+        Magic = 1,
+        Object = 2,
+        Special1 = 3,
+        Special2 = 4,
+        Accessory = 5,
+        Consumeable = 6,
+
+        MaxItemTypes,
     }
 
 }

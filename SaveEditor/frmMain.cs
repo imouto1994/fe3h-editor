@@ -60,7 +60,7 @@ namespace SaveEditor
                 cboLanguage.Items.Add(enm.GetDescription());
             }
 
-            cboLanguage.SelectedIndex = 0;
+            cboLanguage.SelectedIndex = (int)enmLanguage.en_u;
         }
 
         private void frmMain_DragEnter(object sender, DragEventArgs e)
@@ -252,7 +252,7 @@ namespace SaveEditor
                 sfd.Title = @"Save Character File";
                 sfd.Filter = @"Fire Emblem Character Files|*.character|All Files|*.*";
                 sfd.InitialDirectory = Application.StartupPath;
-                sfd.FileName = $@"{Database.GetUnitName(save.SaveData.Characters[x].p1.Id, true)}.character";
+                sfd.FileName = $@"{Database.GetUnitName(save.SaveData.Characters[x].data.Id, true)}.character";
 
                 if (sfd.ShowDialog() == DialogResult.OK)
                 {
@@ -267,7 +267,7 @@ namespace SaveEditor
 			
             if(x == -1 || save == null)
                 return;
-
+            
             using (var ofd = new OpenFileDialog())
             {
                 ofd.CheckFileExists = true;
@@ -282,10 +282,6 @@ namespace SaveEditor
                     if (data.Length == Character.SIZE)
                     {
                         save.SaveData.Characters[x] = Util.ReadStructure<Character>(data);
-                    }
-                    else if (data.Length == Character.SIZE_MEMORY)
-                    {
-                        save.SaveData.Characters[x] = Character.LoadMemoryCharacter(data);
                     }
                     else
                     {
@@ -311,13 +307,13 @@ namespace SaveEditor
             ushort exp = (ushort)Math.Min((int)numSetClassExp.Value, Database.GetMaxClassExp(class_id));
             byte level = (byte) numSetClassLevel.Value;
 
-            save.SaveData.Characters[x].p1.ClassExp[class_id] = exp;
-            save.SaveData.Characters[x].p2.ClassLevel[class_id] = level;
+            save.SaveData.Characters[x].data.ClassExp[class_id] = exp;
+            save.SaveData.Characters[x].data.ClassLevel[class_id] = level;
 
             if (save.SaveData.Characters[x].Class == class_id)
             {
-                save.SaveData.Characters[x].p1.CurrentClassExp = exp;
-                save.SaveData.Characters[x].p1.CurrentClassLevel = level;
+                save.SaveData.Characters[x].data.CurrentClassExp = exp;
+                save.SaveData.Characters[x].data.CurrentClassLevel = level;
             }
             
             LoadCharacters(x);
@@ -362,7 +358,7 @@ namespace SaveEditor
                
             IsUpdating = true;
             
-            var chara1 = save.SaveData.Characters[x].p1;
+            var chara1 = save.SaveData.Characters[x].data;
 
             numCharaSword.Value = GetMaxSkillExp(chara1.SkillLevel[0]);
             numCharaLance.Value = GetMaxSkillExp(chara1.SkillLevel[1]);
@@ -425,13 +421,13 @@ namespace SaveEditor
             if(x == -1 || save == null)
                 return;
 
-            for (int i = 0; i < Database.MAX_CLASSES; i++)
+            for (int i = 0; i < Database.MAX_CLASS; i++)
             {
-                save.SaveData.Characters[x].p1.ClassExp[i] = (ushort)Database.GetMaxClassExp(i);
+                save.SaveData.Characters[x].data.ClassExp[i] = (ushort)Database.GetMaxClassExp(i);
             }
-            save.SaveData.Characters[x].p1.CurrentClassExp = (ushort)Database.GetMaxClassExp(save.SaveData.Characters[x].Class);
+            save.SaveData.Characters[x].data.CurrentClassExp = (ushort)Database.GetMaxClassExp(save.SaveData.Characters[x].Class);
 
-            numCurrentClassExp.Value = save.SaveData.Characters[x].p1.CurrentClassExp;
+            numCurrentClassExp.Value = save.SaveData.Characters[x].data.CurrentClassExp;
 
             LoadCharacterClassExp();
         }
@@ -440,8 +436,7 @@ namespace SaveEditor
         {
             if(lsvTalk.SelectedItems.Count == 0 || save == null)
                 return;
-                
-                                 
+                   
             for (int i = 0; i < lsvTalk.SelectedItems.Count; i++)
             {
                 var item = lsvTalk.SelectedItems[i];
@@ -464,16 +459,16 @@ namespace SaveEditor
 
             var chara = save.SaveData.Characters[x];
 
-            for (int i = 0; i < chara.p1.ItemCount; i++)
+            for (int i = 0; i < chara.data.ItemCount; i++)
             {
-                var item = chara.p1.Items[i];
+                var item = chara.data.Items[i];
 
                 if (item.Id != -1)
                 {
                     item.Durability = 100;
                 }
 
-                chara.p1.Items[i] = item;
+                chara.data.Items[i] = item;
             }
 
             save.SaveData.Characters[x] = chara;
@@ -523,6 +518,8 @@ namespace SaveEditor
         {
             Util.SetComboBoxDataSource(cboItemEditor, Database.ItemList);
             Util.SetComboBoxDataSource(cboBattalionType, Database.BattalionList);
+
+            Util.SetComboBoxDataSource(cboCharaId, Database.UnitList);
             Util.SetComboBoxDataSource(cboCharaBattalion, Database.BattalionList);
             Util.SetComboBoxDataSource(cboAdjutant, Database.CharacterList);
 
@@ -579,7 +576,7 @@ namespace SaveEditor
         private void ChangeLanguage()
         {
             currentLanguage = (enmLanguage) cboLanguage.SelectedIndex;
-            Database.Init(currentLanguage);
+            Database.Init(currentLanguage, false);
             InitComboAndChecklists();
 
             string STR_EXP = Database.GetString(2324, 1);
@@ -617,12 +614,12 @@ namespace SaveEditor
             lblActivityBattle.Text = $@"{Database.GetString(1027, 1)}:";
 
             grpGoddessStatue.Text = $@"{Database.GetString(461, 1)}:"; 
-            lblStatue1.Text = $@"{Database.GetString(9730)}:";
-            lblStatue2.Text = $@"{Database.GetString(9731)}:";
-            lblStatue3.Text = $@"{Database.GetString(9732)}:";
-            lblStatue4.Text = $@"{Database.GetString(9733)}:";
+            lblStatue1.Text = $@"{Database.GetString(9760)}:";
+            lblStatue2.Text = $@"{Database.GetString(9761)}:";
+            lblStatue3.Text = $@"{Database.GetString(9762)}:";
+            lblStatue4.Text = $@"{Database.GetString(9763)}:";
 
-            grpSettings.Text = $@"{Database.GetString(1019, 1)}:";
+            //grpSettings.Text = $@"{Database.GetString(1019, 1)}:";
             
             //storage tabs
             tabStorage.Text = $@"{Database.GetString(1814, 1)}"; //1812
@@ -657,17 +654,17 @@ namespace SaveEditor
             tabSkills.Text = $@"{Database.GetString(569, 1)}";
             grpSkillLevel.Text = $@"{Database.GetString(1367, 1)}:";
             grpLearnedMagic.Text = $@"{Database.GetString(1075, 1)}:";
-            lblSword.Text = $@"{Database.GetString(7180)}:";
-            lblLance.Text = $@"{Database.GetString(7181)}:";
-            lblAxe.Text = $@"{Database.GetString(7182)}:";
-            lblBow.Text = $@"{Database.GetString(7183)}:";
-            lblFighting.Text = $@"{Database.GetString(7184)}:";
-            lblReason.Text = $@"{Database.GetString(7185)}:";
-            lblFaith.Text = $@"{Database.GetString(7186)}:";
-            lblAuthority.Text = $@"{Database.GetString(7187)}:";
-            lblArmor.Text = $@"{Database.GetString(7188)}:";
-            lblRiding.Text = $@"{Database.GetString(7189)}:";
-            lblFly.Text = $@"{Database.GetString(7190)}:";
+            lblSword.Text = $@"{Database.GetString(7210)}:";
+            lblLance.Text = $@"{Database.GetString(7211)}:";
+            lblAxe.Text = $@"{Database.GetString(7212)}:";
+            lblBow.Text = $@"{Database.GetString(7213)}:";
+            lblFighting.Text = $@"{Database.GetString(7214)}:";
+            lblReason.Text = $@"{Database.GetString(7215)}:";
+            lblFaith.Text = $@"{Database.GetString(7216)}:";
+            lblAuthority.Text = $@"{Database.GetString(7217)}:";
+            lblArmor.Text = $@"{Database.GetString(7218)}:";
+            lblRiding.Text = $@"{Database.GetString(7219)}:";
+            lblFly.Text = $@"{Database.GetString(7220)}:";
 
             tabClassExp.Text = STR_CLASS;
 
@@ -713,7 +710,11 @@ namespace SaveEditor
 
                 save = new Save();
 
-                if (fSize == Save.SIZE_SAVE_DATA)
+                if (fSize == Save.SIZE_VERSION_1000)
+                {
+                    save.Read(sPath);
+                }
+                else if (fSize == Save.SIZE_VERSION_1001)
                 {
                     save.Read(sPath);
                 }
@@ -765,7 +766,7 @@ namespace SaveEditor
             if(save == null)
                 return;
 
-            var player = save.SaveData.Player;
+            Player player = save.SaveData.Player;
 
             numPlaytime.Value = Math.Min((int)player.Playtime, Database.MAX_PLAYTIME);
             numMoney.Value = Math.Min((int)player.Money, Database.MAX_MONEY);
@@ -799,10 +800,9 @@ namespace SaveEditor
         {
             if(save == null)
                 return;
-
+            
             save.SaveData.Player.Playtime = (uint) numPlaytime.Value;
             save.SaveData.Player.Money = (uint) numMoney.Value;
-
             save.SaveData.Player.Chapter = (byte)numChapter.Value;
             save.SaveData.Player.Difficulty = (byte)cboDifficulty.SelectedIndex;
             save.SaveData.Player.Gamestyle = (byte)cboGamestyle.SelectedIndex;
@@ -815,11 +815,11 @@ namespace SaveEditor
             if(save == null)
                 return;
 
-            var activities = save.SaveData.Activities;
+            Activities activities = save.SaveData.Activities;
 
-            numReputation.Value = activities.Reputation > Database.MAX_REPUTATION ? Database.MAX_REPUTATION : activities.Reputation;
-            numInstructExp.Value = activities.InstructExp > Database.MAX_INSTRUCT_EXP ? Database.MAX_INSTRUCT_EXP : activities.InstructExp;
-
+            numReputation.Value = Math.Min(activities.Reputation, Database.MAX_REPUTATION);
+            numInstructExp.Value = Math.Min((int)activities.InstructExp, Database.MAX_INSTRUCT_EXP);
+            
             lblInstructRank.Text = activities.GetInstructRank();
             numPlayLog_Wark.Value = activities.PlayLog_Wark;
             numPlayLog_Lecture.Value = activities.PlayLog_Lecture;
@@ -865,7 +865,7 @@ namespace SaveEditor
         {
             if(save == null)
                 return;
-
+            
             save.SaveData.Activities.InstructExp = (ushort)numInstructExp.Value;
             save.SaveData.Activities.Reputation = (uint)numReputation.Value;
 
@@ -897,13 +897,13 @@ namespace SaveEditor
                 return;
 
             lstItems.Items.Clear();
-
+            
             for (int i = 0; i < save.SaveData.Items.Length; i++)
                 lstItems.Items.Add($"[{i:D3}] - {save.SaveData.Items[i]}");
 
             lstItems.SelectedIndex = index;
 
-            grpItemList.Text = $@"Item List {save.SaveData.ItemCount} / {SaveData.ITEM_COUNT}";
+            grpItemList.Text = $@"Item List {save.SaveData.ItemCount} / {SaveData_1000.ITEM_COUNT}";
         }
 
         private void LoadItems2()
@@ -941,7 +941,7 @@ namespace SaveEditor
             Item item = new Item { Id = (short)Util.GetSortedKey<string>(cboItemEditor) };
             item.Durability = item.Id > -1 ? (byte) numItemDurability.Value : (byte) 0;
             item.Amount = item.Id > -1 ? (byte) numItemAmount.Value : (byte) 0;
-
+            
             save.SaveData.Items[x] = item;
 
             UpdateItemCount();
@@ -956,7 +956,7 @@ namespace SaveEditor
                 return;
 
             lstCharacter.Items.Clear();
-
+                        
             for (int i = 0; i < save.SaveData.Characters.Length; i++)
                 lstCharacter.Items.Add($"[{i:D3}] - {save.SaveData.Characters[i]}");
 
@@ -970,19 +970,18 @@ namespace SaveEditor
             if(x == -1 || save == null)
                 return;
 
-            var chara1 = save.SaveData.Characters[x].p1;
-            var chara2 = save.SaveData.Characters[x].p2;
+            CharacterData chara = save.SaveData.Characters[x].data;
 
             lsvClassExp.Items.Clear();
 
-            for (int i = 0; i < Database.MAX_CLASSES; i++)
+            for (int i = 0; i < Database.MAX_CLASS; i++)
             {
                 var entry = new ListViewItem {Text = Database.GetClassName(i), Tag = i.ToString()};
-                entry.SubItems.Add(chara1.ClassExp[i].ToString());
-                entry.SubItems.Add(chara2.ClassLevel[i].ToString());
+                entry.SubItems.Add(chara.ClassExp[i].ToString());
+                entry.SubItems.Add(chara.ClassLevel[i].ToString());
                 lsvClassExp.Items.Add(entry);
             }
-
+            
             SetListViewIndex(lsvClassExp, save.SaveData.Characters[x].Class);
         }
 
@@ -993,74 +992,73 @@ namespace SaveEditor
             if(x == -1 || save == null)
                 return;
 			
-			CharacterPart1 chara1 = save.SaveData.Characters[x].p1;
-			CharacterPart2 chara2 = save.SaveData.Characters[x].p2;
+			CharacterData chara = save.SaveData.Characters[x].data;
 
-            chara1.RNG_VALUE = (uint) numRNG.Value;
-            chara1.Level = (byte)numCharaLevel.Value;
-            chara1.Exp = (ushort)numCharaExp.Value;
+            chara.Id = (short)Util.GetSortedKey<string>(cboCharaId);
+            chara.RNG_VALUE = (uint) numRNG.Value;
+            chara.Level = (byte)numCharaLevel.Value;
+            chara.Exp = (ushort)numCharaExp.Value;
 
-            chara1.SkillExp[0] = (ushort)numCharaSword.Value;
-            chara1.SkillExp[1] = (ushort)numCharaLance.Value;
-            chara1.SkillExp[2] = (ushort)numCharaAxe.Value;
-            chara1.SkillExp[3] = (ushort)numCharaBow.Value;
-            chara1.SkillExp[4] = (ushort)numCharaFighting.Value;
-            chara1.SkillExp[5] = (ushort)numCharaReason.Value;
-            chara1.SkillExp[6] = (ushort)numCharaFaith.Value;
-            chara1.SkillExp[7] = (ushort)numCharaAuthority.Value;
-            chara1.SkillExp[8] = (ushort)numCharaArmor.Value;
-            chara1.SkillExp[9] = (ushort)numCharaRiding.Value;
-            chara1.SkillExp[10] = (ushort)numCharaFly.Value;
+            chara.SkillExp[0] = (ushort)numCharaSword.Value;
+            chara.SkillExp[1] = (ushort)numCharaLance.Value;
+            chara.SkillExp[2] = (ushort)numCharaAxe.Value;
+            chara.SkillExp[3] = (ushort)numCharaBow.Value;
+            chara.SkillExp[4] = (ushort)numCharaFighting.Value;
+            chara.SkillExp[5] = (ushort)numCharaReason.Value;
+            chara.SkillExp[6] = (ushort)numCharaFaith.Value;
+            chara.SkillExp[7] = (ushort)numCharaAuthority.Value;
+            chara.SkillExp[8] = (ushort)numCharaArmor.Value;
+            chara.SkillExp[9] = (ushort)numCharaRiding.Value;
+            chara.SkillExp[10] = (ushort)numCharaFly.Value;
 
-            chara1.CurrentClassExp = (ushort)numCurrentClassExp.Value;
+            chara.CurrentClassExp = (ushort)numCurrentClassExp.Value;
 
-            chara1.HP = (byte)numCharaHP.Value;
-            chara1.Strength = (byte)numCharaStrength.Value;
-            chara1.Magic = (byte)numCharaMagic.Value;
-            chara1.Dexterity = (byte)numCharaDexterity.Value;
-            chara1.Speed = (byte)numCharaSpeed.Value;
-            chara1.Luck = (byte)numCharaLuck.Value;
-            chara1.Defense = (byte)numCharaDefense.Value;
-            chara1.Resistance = (byte)numCharaResistance.Value;
-            chara1.Movement = (byte)numCharaMovement.Value;
-            chara1.Charm = (byte)numCharaCharm.Value;
+            chara.HP = (byte)numCharaHP.Value;
+            chara.Strength = (byte)numCharaStrength.Value;
+            chara.Magic = (byte)numCharaMagic.Value;
+            chara.Dexterity = (byte)numCharaDexterity.Value;
+            chara.Speed = (byte)numCharaSpeed.Value;
+            chara.Luck = (byte)numCharaLuck.Value;
+            chara.Defense = (byte)numCharaDefense.Value;
+            chara.Resistance = (byte)numCharaResistance.Value;
+            chara.Movement = (byte)numCharaMovement.Value;
+            chara.Charm = (byte)numCharaCharm.Value;
 
-            chara1.CombatArts = Util.GetFlagTableArray(chkCombatArts);
-            chara1.Abilities = Util.GetFlagTableArray(chkAbilities);
+            chara.CombatArts = Util.GetFlagTableArray(chkCombatArts);
+            chara.Abilities = Util.GetFlagTableArray(chkAbilities);
 
-            chara1.EquippedAbilities[0] = (byte)Util.GetSortedKey<string>(cboAbility1);
-            chara1.EquippedAbilities[1] = (byte)Util.GetSortedKey<string>(cboAbility2);
-            chara1.EquippedAbilities[2] = (byte)Util.GetSortedKey<string>(cboAbility3);
-            chara1.EquippedAbilities[3] = (byte)Util.GetSortedKey<string>(cboAbility4);
-            chara1.EquippedAbilities[4] = (byte)Util.GetSortedKey<string>(cboAbility5);
+            chara.EquippedAbilities[0] = (byte)Util.GetSortedKey<string>(cboAbility1);
+            chara.EquippedAbilities[1] = (byte)Util.GetSortedKey<string>(cboAbility2);
+            chara.EquippedAbilities[2] = (byte)Util.GetSortedKey<string>(cboAbility3);
+            chara.EquippedAbilities[3] = (byte)Util.GetSortedKey<string>(cboAbility4);
+            chara.EquippedAbilities[4] = (byte)Util.GetSortedKey<string>(cboAbility5);
 
-            chara1.EquippedCombatArts[0] = (byte)Util.GetSortedKey<string>(cboBattleSkill1);
-            chara1.EquippedCombatArts[1] = (byte)Util.GetSortedKey<string>(cboBattleSkill2);
-            chara1.EquippedCombatArts[2] = (byte)Util.GetSortedKey<string>(cboBattleSkill3);
+            chara.EquippedCombatArts[0] = (byte)Util.GetSortedKey<string>(cboBattleSkill1);
+            chara.EquippedCombatArts[1] = (byte)Util.GetSortedKey<string>(cboBattleSkill2);
+            chara.EquippedCombatArts[2] = (byte)Util.GetSortedKey<string>(cboBattleSkill3);
 
-            chara1.CurrentClassLevel = (byte)numCurrentClassLevel.Value;
+            chara.CurrentClassLevel = (byte)numCurrentClassLevel.Value;
 
-            chara1.Flags = Util.GetFlagTableUint(chkCharaFlags);
-            chara1.Motivation = (byte)numCharaMotivation.Value;
-            chara1.ClassUnlockFlags = Util.GetFlagTableArray(chkCharaClassUnlockFlags);
-            chara1.ClassFlags = Util.GetFlagTableByte(chkCharaClassFlags);
+            chara.Flags = Util.GetFlagTableUint(chkCharaFlags);
+            chara.Motivation = (byte)numCharaMotivation.Value;
+            chara.ClassUnlockFlags = Util.GetFlagTableArray(chkCharaClassUnlockFlags);
+            chara.ClassFlags = Util.GetFlagTableByte(chkCharaClassFlags);
 
-            chara1.AdjutantId = (short)Util.GetSortedKey<string>(cboAdjutant);
+            chara.AdjutantId = (short)Util.GetSortedKey<string>(cboAdjutant);
 
-            chara1.SkillExp2[0] = (ushort)numCharaSword.Value;
-            chara1.SkillExp2[1] = (ushort)numCharaLance.Value;
-            chara1.SkillExp2[2] = (ushort)numCharaAxe.Value;
-            chara1.SkillExp2[3] = (ushort)numCharaBow.Value;
-            chara1.SkillExp2[4] = (ushort)numCharaFighting.Value;
-            chara1.SkillExp2[5] = (ushort)numCharaReason.Value;
-            chara1.SkillExp2[6] = (ushort)numCharaFaith.Value;
-            chara1.SkillExp2[7] = (ushort)numCharaAuthority.Value;
-            chara1.SkillExp2[8] = (ushort)numCharaArmor.Value;
-            chara1.SkillExp2[9] = (ushort)numCharaRiding.Value;
-            chara1.SkillExp2[10] = (ushort)numCharaFly.Value;
-			
-            save.SaveData.Characters[x].p1 = chara1;
-            save.SaveData.Characters[x].p2 = chara2;
+            chara.SkillExp2[0] = (ushort)numCharaSword.Value;
+            chara.SkillExp2[1] = (ushort)numCharaLance.Value;
+            chara.SkillExp2[2] = (ushort)numCharaAxe.Value;
+            chara.SkillExp2[3] = (ushort)numCharaBow.Value;
+            chara.SkillExp2[4] = (ushort)numCharaFighting.Value;
+            chara.SkillExp2[5] = (ushort)numCharaReason.Value;
+            chara.SkillExp2[6] = (ushort)numCharaFaith.Value;
+            chara.SkillExp2[7] = (ushort)numCharaAuthority.Value;
+            chara.SkillExp2[8] = (ushort)numCharaArmor.Value;
+            chara.SkillExp2[9] = (ushort)numCharaRiding.Value;
+            chara.SkillExp2[10] = (ushort)numCharaFly.Value;
+			                        
+            save.SaveData.Characters[x].data = chara;
 
             LoadCharacters(x);
         }
@@ -1071,7 +1069,7 @@ namespace SaveEditor
                 return;
             
             lstBattalion.Items.Clear();
-
+            			                        
             for (int i = 0; i < save.SaveData.Player.Battalions.Length; i++)
                 lstBattalion.Items.Add($"[{i:D3}] - {save.SaveData.Player.Battalions[i].GetBarracksName()}");
 
@@ -1080,14 +1078,22 @@ namespace SaveEditor
 
         private void SaveBattalion()
         {
-            int x = lstCharacter.SelectedIndex;
+            int x = lstBattalion.SelectedIndex;
 			
             if(x == -1 || save == null)
                 return;
 
-            short id = (short) Util.GetSortedKey<string>(cboBattalionCharacter);
-            if (id == -1) id = Database.BATTALION_COUNT;
+            short id;
+            try
+            {
+                id = (short) Util.GetSortedKey<string>(cboBattalionCharacter);
+            }
+            catch (Exception)
+            {
 
+                id = -1;
+            }
+            
             Battalion battalion = new Battalion
             {
                 CharacterId = id,
@@ -1096,7 +1102,7 @@ namespace SaveEditor
                 Stamina = (ushort)numBattalionStamina.Value,
                 Skill = (byte)Util.GetSortedKey<string>(cboBattalionSkill)
             };
-
+                        			                        
             save.SaveData.Player.Battalions[x] = battalion;
 
             LoadBattalions(x);
@@ -1137,7 +1143,7 @@ namespace SaveEditor
             if(x == -1 || save == null)
                 return;
 
-            var item = save.SaveData.Items[x];
+            Item item = save.SaveData.Items[x];
 
             Util.SetSortedIndex<string>(cboItemEditor, item.Id);
             numItemDurability.Value = item.Durability;
@@ -1150,12 +1156,11 @@ namespace SaveEditor
 
             if(x == -1 || save == null)
                 return;
+              
+            CharacterData chara = save.SaveData.Characters[x].data;
 
-            var chara1 = save.SaveData.Characters[x].p1;
-            var chara2 = save.SaveData.Characters[x].p2;
-            
             lstCharacterItems.Items.Clear();
-            for (int i = 0; i < Database.MAX_CHARA_ITEMS; i++) lstCharacterItems.Items.Add(chara1.Items[i].EquippedName);
+            for (int i = 0; i < Database.MAX_CHARA_ITEMS; i++) lstCharacterItems.Items.Add(chara.Items[i].EquippedName);
             for (int i = 0; i < chkCharaFlags.Items.Count; i++) chkCharaFlags.SetItemChecked(i, false);
             for (int i = 0; i < chkCharaClassFlags.Items.Count; i++) chkCharaClassFlags.SetItemChecked(i, false);
             for (int i = 0; i < chkCharaClassUnlockFlags.Items.Count; i++) chkCharaClassUnlockFlags.SetItemChecked(i, false);
@@ -1164,87 +1169,89 @@ namespace SaveEditor
 
             txtCharacterDebug.Text = "";
             
-            if(chara1.EquippedBattalion.CharacterId >= Database.CHARACTER_USEABLE_COUNT)
+            Util.SetSortedIndex<string>(cboCharaId, chara.Id);
+
+            if(chara.EquippedBattalion.CharacterId >= Database.CHARACTER_USEABLE_COUNT)
                 Util.SetSortedIndex<string>(cboCharaBattalion, -1);
             else
-                Util.SetSortedIndex<string>(cboCharaBattalion, chara1.EquippedBattalion.CharacterId);
+                Util.SetSortedIndex<string>(cboCharaBattalion, chara.EquippedBattalion.CharacterId);
 
-            numRNG.Value = chara1.RNG_VALUE;
+            numRNG.Value = chara.RNG_VALUE;
 
             //txtCharacterDebug.Text += $"field_26: {chara1.field_26}, field_28: {chara1.field_28}, field_2A: {chara1.field_2A}, field_2B: {chara1.field_2B}\r\n";
             
-            numCharaExp.Value = chara1.Exp;
+            numCharaExp.Value = chara.Exp;
 
             //txtCharacterDebug.Text += $"EquippedItems: {chara1.EquippedItem[0]}, {chara1.EquippedItem[1]}\r\n";
             
-            numCharaSword.Value = chara1.SkillExp[0];
-            numCharaLance.Value = chara1.SkillExp[1];
-            numCharaAxe.Value = chara1.SkillExp[2];
-            numCharaBow.Value = chara1.SkillExp[3];
-            numCharaFighting.Value = chara1.SkillExp[4];
-            numCharaReason.Value = chara1.SkillExp[5];
-            numCharaFaith.Value = chara1.SkillExp[6];
-            numCharaAuthority.Value = chara1.SkillExp[7];
-            numCharaArmor.Value = chara1.SkillExp[8];
-            numCharaRiding.Value = chara1.SkillExp[9];
-            numCharaFly.Value = chara1.SkillExp[10];
-            numCurrentClassExp.Value = chara1.CurrentClassExp;
-            numCharaLevel.Value = chara1.Level;
-            Util.SetSortedIndex<string>(cboClass, chara1.Class);
+            numCharaSword.Value = chara.SkillExp[0];
+            numCharaLance.Value = chara.SkillExp[1];
+            numCharaAxe.Value = chara.SkillExp[2];
+            numCharaBow.Value = chara.SkillExp[3];
+            numCharaFighting.Value = chara.SkillExp[4];
+            numCharaReason.Value = chara.SkillExp[5];
+            numCharaFaith.Value = chara.SkillExp[6];
+            numCharaAuthority.Value = chara.SkillExp[7];
+            numCharaArmor.Value = chara.SkillExp[8];
+            numCharaRiding.Value = chara.SkillExp[9];
+            numCharaFly.Value = chara.SkillExp[10];
+            numCurrentClassExp.Value = chara.CurrentClassExp;
+            numCharaLevel.Value = chara.Level;
+            Util.SetSortedIndex<string>(cboClass, chara.Class);
 
 
             //stats
-            numCharaHP.Maximum = Database.GetMaxHP(chara1.Id, chara1.Class);
-            numCharaStrength.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 0);
-            numCharaMagic.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 1);
-            numCharaDexterity.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 2);
-            numCharaSpeed.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 3);
-            numCharaLuck.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 4);
-            numCharaDefense.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 5);
-            numCharaResistance.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 6);
-            numCharaMovement.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 7);
-            numCharaCharm.Maximum = Database.GetMaxStat(chara1.Id, chara1.Class, 8);
+            numCharaHP.Maximum = Database.GetMaxHP(chara.Id, chara.Class);
+            numCharaStrength.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 0);
+            numCharaMagic.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 1);
+            numCharaDexterity.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 2);
+            numCharaSpeed.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 3);
+            numCharaLuck.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 4);
+            numCharaDefense.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 5);
+            numCharaResistance.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 6);
+            numCharaMovement.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 7);
+            numCharaCharm.Maximum = Database.GetMaxStat(chara.Id, chara.Class, 8);
 
-            numCharaHP.Value = Math.Min(chara1.HP, Database.GetMaxHP(chara1.Id, chara1.Class));
+            numCharaHP.Value = Math.Min(chara.HP, Database.GetMaxHP(chara.Id, chara.Class));
             //txtCharacterDebug.Text += $"field_4D: {chara1.field_4D}\r\n";
-            numCharaStrength.Value = Math.Min(chara1.Strength, Database.GetMaxStat(chara1.Id, chara1.Class, 0));
-            numCharaMagic.Value = Math.Min(chara1.Magic, Database.GetMaxStat(chara1.Id, chara1.Class, 1));
-            numCharaDexterity.Value = Math.Min(chara1.Dexterity, Database.GetMaxStat(chara1.Id, chara1.Class, 2));
-            numCharaSpeed.Value = Math.Min(chara1.Speed, Database.GetMaxStat(chara1.Id, chara1.Class, 3));
-            numCharaLuck.Value = Math.Min(chara1.Luck, Database.GetMaxStat(chara1.Id, chara1.Class, 4));
-            numCharaDefense.Value = Math.Min(chara1.Defense, Database.GetMaxStat(chara1.Id, chara1.Class, 5));
-            numCharaResistance.Value = Math.Min(chara1.Resistance, Database.GetMaxStat(chara1.Id, chara1.Class, 6));
-            numCharaMovement.Value = Math.Min(chara1.Movement, Database.GetMaxStat(chara1.Id, chara1.Class, 7));
-            numCharaCharm.Value = Math.Min(chara1.Charm, Database.GetMaxStat(chara1.Id, chara1.Class, 8));
+            numCharaStrength.Value = Math.Min(chara.Strength, Database.GetMaxStat(chara.Id, chara.Class, 0));
+            numCharaMagic.Value = Math.Min(chara.Magic, Database.GetMaxStat(chara.Id, chara.Class, 1));
+            numCharaDexterity.Value = Math.Min(chara.Dexterity, Database.GetMaxStat(chara.Id, chara.Class, 2));
+            numCharaSpeed.Value = Math.Min(chara.Speed, Database.GetMaxStat(chara.Id, chara.Class, 3));
+            numCharaLuck.Value = Math.Min(chara.Luck, Database.GetMaxStat(chara.Id, chara.Class, 4));
+            numCharaDefense.Value = Math.Min(chara.Defense, Database.GetMaxStat(chara.Id, chara.Class, 5));
+            numCharaResistance.Value = Math.Min(chara.Resistance, Database.GetMaxStat(chara.Id, chara.Class, 6));
+            numCharaMovement.Value = Math.Min(chara.Movement, Database.GetMaxStat(chara.Id, chara.Class, 7));
+            numCharaCharm.Value = Math.Min(chara.Charm, Database.GetMaxStat(chara.Id, chara.Class, 8));
 
-            Util.FillFlagTableArray(chkCombatArts, chara1.CombatArts);
-            Util.FillFlagTableArray(chkAbilities, chara1.Abilities);
+            Util.FillFlagTableArray(chkCombatArts, chara.CombatArts);
+            Util.FillFlagTableArray(chkAbilities, chara.Abilities);
 
-            Util.SetSortedIndex<string>(cboAbility1, chara1.EquippedAbilities[0]);
-            Util.SetSortedIndex<string>(cboAbility2, chara1.EquippedAbilities[1]);
-            Util.SetSortedIndex<string>(cboAbility3, chara1.EquippedAbilities[2]);
-            Util.SetSortedIndex<string>(cboAbility4, chara1.EquippedAbilities[3]);
-            Util.SetSortedIndex<string>(cboAbility5, chara1.EquippedAbilities[4]);
+            Util.SetSortedIndex<string>(cboAbility1, chara.EquippedAbilities[0]);
+            Util.SetSortedIndex<string>(cboAbility2, chara.EquippedAbilities[1]);
+            Util.SetSortedIndex<string>(cboAbility3, chara.EquippedAbilities[2]);
+            Util.SetSortedIndex<string>(cboAbility4, chara.EquippedAbilities[3]);
+            Util.SetSortedIndex<string>(cboAbility5, chara.EquippedAbilities[4]);
 
-            Util.SetSortedIndex<string>(cboBattleSkill1, chara1.EquippedCombatArts[0]);
-            Util.SetSortedIndex<string>(cboBattleSkill2, chara1.EquippedCombatArts[1]);
-            Util.SetSortedIndex<string>(cboBattleSkill3, chara1.EquippedCombatArts[2]);
+            Util.SetSortedIndex<string>(cboBattleSkill1, chara.EquippedCombatArts[0]);
+            Util.SetSortedIndex<string>(cboBattleSkill2, chara.EquippedCombatArts[1]);
+            Util.SetSortedIndex<string>(cboBattleSkill3, chara.EquippedCombatArts[2]);
 
-            grpCharaItemList.Text = $@"Item List {chara1.ItemCount} / 6";
+            grpCharaItemList.Text = $@"Item List {chara.ItemCount} / 6";
 
-            lblCharaSword.Text = GetSkillRankLabel(chara1.SkillLevel[0]);
-            lblCharaLance.Text = GetSkillRankLabel(chara1.SkillLevel[1]);
-            lblCharaAxe.Text = GetSkillRankLabel(chara1.SkillLevel[2]);
-            lblCharaBow.Text = GetSkillRankLabel(chara1.SkillLevel[3]);
-            lblCharaFighting.Text = GetSkillRankLabel(chara1.SkillLevel[4]);
-            lblCharaReason.Text = GetSkillRankLabel(chara1.SkillLevel[5]);
-            lblCharaFaith.Text = GetSkillRankLabel(chara1.SkillLevel[6]);
-            lblCharaAuthority.Text = GetSkillRankLabel(chara1.SkillLevel[7]);
-            lblCharaArmor.Text = GetSkillRankLabel(chara1.SkillLevel[8]);
-            lblCharaRiding.Text = GetSkillRankLabel(chara1.SkillLevel[9]);
-            lblCharaFly.Text = GetSkillRankLabel(chara1.SkillLevel[10]);
+            lblCharaSword.Text = GetSkillRankLabel(chara.SkillLevel[0]);
+            lblCharaLance.Text = GetSkillRankLabel(chara.SkillLevel[1]);
+            lblCharaAxe.Text = GetSkillRankLabel(chara.SkillLevel[2]);
+            lblCharaBow.Text = GetSkillRankLabel(chara.SkillLevel[3]);
+            lblCharaFighting.Text = GetSkillRankLabel(chara.SkillLevel[4]);
+            lblCharaReason.Text = GetSkillRankLabel(chara.SkillLevel[5]);
+            lblCharaFaith.Text = GetSkillRankLabel(chara.SkillLevel[6]);
+            lblCharaAuthority.Text = GetSkillRankLabel(chara.SkillLevel[7]);
+            lblCharaArmor.Text = GetSkillRankLabel(chara.SkillLevel[8]);
+            lblCharaRiding.Text = GetSkillRankLabel(chara.SkillLevel[9]);
+            lblCharaFly.Text = GetSkillRankLabel(chara.SkillLevel[10]);
 
-            numCurrentClassLevel.Value = (byte)Math.Min((int)chara1.CurrentClassLevel, Database.MAX_CLASS_LEVEL);
+            numCurrentClassLevel.Value = (byte)Math.Min((int)chara.CurrentClassLevel, Database.MAX_CLASS_LEVEL);
 
             lsvCharaMagic.Items.Clear();
             
@@ -1252,9 +1259,9 @@ namespace SaveEditor
             {
                 var entry = new ListViewItem {Text = i.ToString("D2"), Tag = i.ToString()};
 
-                entry.SubItems.Add(Database.GetMagicSkillName(chara1.LearnedMagic[i]));
-                entry.SubItems.Add(chara1.LearnedMagic[i].ToString());
-                entry.SubItems.Add(chara1.MagicDurability[i].ToString());
+                entry.SubItems.Add(Database.GetMagicSkillName(chara.LearnedMagic[i]));
+                entry.SubItems.Add(chara.LearnedMagic[i].ToString());
+                entry.SubItems.Add(chara.MagicDurability[i].ToString());
 
                 lsvCharaMagic.Items.Add(entry);
             }
@@ -1262,38 +1269,37 @@ namespace SaveEditor
             //txtCharacterDebug.Text += $"MagicDurability: {Util.Array2String(chara1.MagicDurability, " ")}\r\n";
             //txtCharacterDebug.Text += $"LearnedMagic: {Util.Array2String(chara1.LearnedMagic, " ")}\r\n";
             
-            Util.SetFlagTableUint(chkCharaFlags, chara1.Flags);
+            Util.SetFlagTableUint(chkCharaFlags, chara.Flags);
 
             //txtCharacterDebug.Text += $"field_B0: {Util.Array2String(chara1.field_B0, " ")}\r\n";
 
-            numCharaMotivation.Value = chara1.Motivation;
+            numCharaMotivation.Value = chara.Motivation;
                  
             //txtCharacterDebug.Text += $"field_C5: {Util.Array2String(chara1.field_C5, " ")}\r\n";
             //txtCharacterDebug.Text += $"field_D0: {Util.Array2String(chara1.field_D0, " ")}\r\n";
 
-            Util.FillFlagTableArray(chkCharaClassUnlockFlags, chara1.ClassUnlockFlags);
+            Util.FillFlagTableArray(chkCharaClassUnlockFlags, chara.ClassUnlockFlags);
 
             //txtCharacterDebug.Text += $"LearningFocus: {chara1.LearningFocus}\r\n";
             //txtCharacterDebug.Text += $"field_DC: {Util.Array2String(chara1.field_DC, " ")}\r\n";
 
-            Util.SetFlagTableByte(chkCharaClassFlags, chara1.ClassFlags);
+            Util.SetFlagTableByte(chkCharaClassFlags, chara.ClassFlags);
 
             //txtCharacterDebug.Text += $"field_E0: {Util.Array2String(chara1.field_E0, " ")}\r\n";
             //txtCharacterDebug.Text += $"field_EA: {Util.Array2String(chara1.field_EA, " ")}\r\n";
             //txtCharacterDebug.Text += $"field_F4: {Util.Array2String(chara1.field_F4, " ")}\r\n";
 
-            if(chara1.AdjutantId >= Database.CHARACTER_USEABLE_COUNT)
+            if(chara.AdjutantId >= Database.CHARACTER_USEABLE_COUNT)
                 Util.SetSortedIndex<string>(cboAdjutant, -1);
             else
-                Util.SetSortedIndex<string>(cboAdjutant, chara1.AdjutantId);
+                Util.SetSortedIndex<string>(cboAdjutant, chara.AdjutantId);
             
             LoadCharacterClassExp(); //update exp, this also updates the focus...
             lstCharacter.Focus(); //fix to prevent losing the focus (no focus == arrow keys no longer working)
 
             //txtCharacterDebug.Text += $"field_18A: {Util.Array2String(chara1.field_18A, " ")}\r\n";
 
-            txtCharacterDebug.Text += chara1.GenerateDebugOut();
-            txtCharacterDebug.Text += chara2.GenerateDebugOut();
+            txtCharacterDebug.Text += chara.GenerateDebugOut();
         }
         
         private void lstBattalion_SelectedIndexChanged(object sender, EventArgs e)
@@ -1302,8 +1308,8 @@ namespace SaveEditor
 
             if(x == -1 || save == null)
                 return;
-
-            var battalion = save.SaveData.Player.Battalions[x];
+            
+            Battalion battalion = save.SaveData.Player.Battalions[x];
 
             Util.SetSortedIndex<string>(cboBattalionCharacter, battalion.CharacterId);
             Util.SetSortedIndex<string>(cboBattalionType, battalion.Type == Database.BATTALION_COUNT ? -1 : battalion.Type);
@@ -1322,9 +1328,9 @@ namespace SaveEditor
             var job = lsvClassExp.SelectedItems[0];
 
             int id = int.Parse(job.Tag.ToString());
-
-            numSetClassExp.Value = save.SaveData.Characters[x].p1.ClassExp[id];
-            numSetClassLevel.Value = save.SaveData.Characters[x].p2.ClassLevel[id];
+            
+            numSetClassExp.Value = save.SaveData.Characters[x].data.ClassExp[id];
+            numSetClassLevel.Value = save.SaveData.Characters[x].data.ClassLevel[id];
         }
 
         private void lsvMiscItems_SelectedIndexChanged(object sender, EventArgs e)
@@ -1335,7 +1341,7 @@ namespace SaveEditor
             var item = lsvMiscItems.SelectedItems[0];
 
             int id = int.Parse(item.Tag.ToString());
-
+                      
             numEditMiscItem.Value = save.SaveData.Player.MiscItems[id];
         }
 
@@ -1347,7 +1353,7 @@ namespace SaveEditor
             var item = lsvGiftItems.SelectedItems[0];
 
             int id = int.Parse(item.Tag.ToString());
-
+                                  
             numEditGiftItem.Value = save.SaveData.Player.GiftItems[id];
         }
         
@@ -1359,7 +1365,7 @@ namespace SaveEditor
             var item = lsvQuest.SelectedItems[0];
 
             int id = int.Parse(item.Tag.ToString());
-
+                                  
             cboQuestState.SelectedIndex = save.SaveData.Activities.QuestStateList[id];
         }
         
@@ -1371,7 +1377,7 @@ namespace SaveEditor
             var item = lsvTalk.SelectedItems[0];
 
             int id = int.Parse(item.Tag.ToString());
-
+                                              
             numTalkSetState.Value = save.SaveData.Player.CharacterSupportValues[id];
         }
 
@@ -1384,19 +1390,19 @@ namespace SaveEditor
             
             IsUpdating = true;
 
-            var chara1 = save.SaveData.Characters[x].p1;
+            CharacterData chara = save.SaveData.Characters[x].data;
 
-            numCharaSword.Value = GetValidSkillExp((int)numCharaSword.Value, chara1.SkillLevel[0]);
-            numCharaLance.Value = GetValidSkillExp((int)numCharaLance.Value, chara1.SkillLevel[1]);
-            numCharaAxe.Value = GetValidSkillExp((int)numCharaAxe.Value, chara1.SkillLevel[2]);
-            numCharaBow.Value = GetValidSkillExp((int)numCharaBow.Value, chara1.SkillLevel[3]);
-            numCharaFighting.Value = GetValidSkillExp((int)numCharaFighting.Value, chara1.SkillLevel[4]);
-            numCharaReason.Value = GetValidSkillExp((int)numCharaReason.Value, chara1.SkillLevel[5]);
-            numCharaFaith.Value = GetValidSkillExp((int)numCharaFaith.Value, chara1.SkillLevel[6]);
-            numCharaAuthority.Value = GetValidSkillExp((int)numCharaAuthority.Value, chara1.SkillLevel[7]);
-            numCharaArmor.Value = GetValidSkillExp((int)numCharaArmor.Value, chara1.SkillLevel[8]);
-            numCharaRiding.Value = GetValidSkillExp((int)numCharaRiding.Value, chara1.SkillLevel[9]);
-            numCharaFly.Value = GetValidSkillExp((int)numCharaFly.Value, chara1.SkillLevel[10]);
+            numCharaSword.Value = GetValidSkillExp((int)numCharaSword.Value, chara.SkillLevel[0]);
+            numCharaLance.Value = GetValidSkillExp((int)numCharaLance.Value, chara.SkillLevel[1]);
+            numCharaAxe.Value = GetValidSkillExp((int)numCharaAxe.Value, chara.SkillLevel[2]);
+            numCharaBow.Value = GetValidSkillExp((int)numCharaBow.Value, chara.SkillLevel[3]);
+            numCharaFighting.Value = GetValidSkillExp((int)numCharaFighting.Value, chara.SkillLevel[4]);
+            numCharaReason.Value = GetValidSkillExp((int)numCharaReason.Value, chara.SkillLevel[5]);
+            numCharaFaith.Value = GetValidSkillExp((int)numCharaFaith.Value, chara.SkillLevel[6]);
+            numCharaAuthority.Value = GetValidSkillExp((int)numCharaAuthority.Value, chara.SkillLevel[7]);
+            numCharaArmor.Value = GetValidSkillExp((int)numCharaArmor.Value, chara.SkillLevel[8]);
+            numCharaRiding.Value = GetValidSkillExp((int)numCharaRiding.Value, chara.SkillLevel[9]);
+            numCharaFly.Value = GetValidSkillExp((int)numCharaFly.Value, chara.SkillLevel[10]);
 
             IsUpdating = false;
         }
@@ -1410,14 +1416,14 @@ namespace SaveEditor
             
             IsUpdating = true;
 
-            int class_id = save.SaveData.Characters[x].Class;
+            int class_id= save.SaveData.Characters[x].Class;
             ushort exp = (ushort) numCurrentClassExp.Value;
             byte level = (byte)Math.Min((int)numCurrentClassLevel.Value, Database.MAX_CLASS_LEVEL);
 
-            save.SaveData.Characters[x].p1.CurrentClassExp = (ushort)Math.Min(exp, Database.GetMaxClassExp(class_id));
-            save.SaveData.Characters[x].p1.CurrentClassLevel = level;
-            save.SaveData.Characters[x].p1.ClassExp[class_id] = (ushort)Math.Min(exp, Database.GetMaxClassExp(class_id));
-            save.SaveData.Characters[x].p2.ClassLevel[class_id] = level;
+            save.SaveData.Characters[x].data.CurrentClassExp = (ushort)Math.Min(exp, Database.GetMaxClassExp(class_id));
+            save.SaveData.Characters[x].data.CurrentClassLevel = level;
+            save.SaveData.Characters[x].data.ClassExp[class_id] = (ushort)Math.Min(exp, Database.GetMaxClassExp(class_id));
+            save.SaveData.Characters[x].data.ClassLevel[class_id] = level;
 
             IsUpdating = false;
  
@@ -1489,7 +1495,7 @@ namespace SaveEditor
         {
             if(save == null)
                 return -1;
-
+            
             for (int i = 0; i < save.SaveData.Items.Length; i++)
             {
                 var item = save.SaveData.Items[i];
@@ -1507,7 +1513,7 @@ namespace SaveEditor
         {
             if(save == null)
                 return -1;
-            
+                        
             for (int i = 0; i < save.SaveData.Items.Length; i++)
             {
                 var item = save.SaveData.Items[i];
@@ -1527,7 +1533,7 @@ namespace SaveEditor
                 return;
 
             var index = DoesItemExist(id);
-
+                                   
             if (index == -1) //add new item
             {
                 int freeSlot = GetFreeItemSlot();

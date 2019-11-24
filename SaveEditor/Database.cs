@@ -24,7 +24,7 @@ namespace SaveEditor
         public const int MAX_CHARA_COMBAT_ARTS = 3;
         public const int MAX_SKILLS = 11;
         public const int MAX_MAGIC = 12;
-        public const int MAX_CLASSES = 64; //90, but to match the flags and make everything easier, we just use the first 64
+        public const int MAX_CLASS = 100; //old: 90
         public const int MAX_CLASS_FLAGS = 8;
         public const int MAX_ABILITIES = 30; // bytes
         public const int MAX_CLASS_LEVEL = 1;
@@ -33,11 +33,11 @@ namespace SaveEditor
         public const int GAMESTYLE_COUNT = 2;
         public const int CHARACTER_COUNT = 60;
         public const int CHARACTER_USEABLE_COUNT = 35;
-        public const int ABILITY_COUNT = MAX_ABILITIES * 8; // bits
+        public const int ABILITY_COUNT = 256; //of 300
         public const int CLASS_FLAGS_COUNT = MAX_CLASS_FLAGS * 8; // bits
         public const int MAGIC_COUNT = 38; // of 300
         public const int BATTALION_COUNT = 200;
-        public const int COMBAT_ARTS_COUNT = 80;
+        public const int COMBAT_ARTS_COUNT = 80; //of 300
         public const int BATTALION_SKILL_COUNT = 80;
         public const int CREST_COUNT = 86;
 
@@ -104,7 +104,7 @@ namespace SaveEditor
         };
 
 
-        private static StringDB Text1, Text2, Text3;
+        private static StringDB Text1, Text2, Text3, Text4;
         public static BinaryDB BinaryDatabase;
 
         public static Dictionary<int, string> ItemList;
@@ -117,13 +117,14 @@ namespace SaveEditor
         public static Dictionary<int, string> MagicList;
         public static Dictionary<int, string> BattalionSkillList;
     
-        public static void Init(enmLanguage lang = enmLanguage.en, bool DumpToFile = false)
+        public static void Init(enmLanguage lang = enmLanguage.en_u, bool DumpToFile = false)
         {
             try
             {
-                Text1 = LoadDatabaseFile(lang.ToString(), 0, DumpToFile);
-                Text2 = LoadDatabaseFile(lang.ToString(), 1, DumpToFile);
-                Text3 = LoadDatabaseFile(lang.ToString(), 2, DumpToFile);
+                Text1 = LoadDatabaseFile(lang, 0, DumpToFile);
+                Text2 = LoadDatabaseFile(lang, 1, DumpToFile);
+                Text3 = LoadDatabaseFile(lang, 2, DumpToFile);
+                Text4 = LoadDatabaseFile(lang, 3, DumpToFile);
 
                 BinaryDatabase = new BinaryDB();
                 BinaryDatabase.Init();
@@ -139,7 +140,7 @@ namespace SaveEditor
 
             if (DumpToFile)
             {
-                BinaryDatabase.DumpToJson();
+                //BinaryDatabase.DumpToJson();
             }
         }
 
@@ -222,14 +223,17 @@ namespace SaveEditor
             }
         }
 
-        private static StringDB LoadDatabaseFile(string lang, int idx, bool DumpToFile = false)
+        private static StringDB LoadDatabaseFile(enmLanguage lang, int idx, bool DumpToFile)
         {
             StringDB sdb = new StringDB();
-            sdb.Load($"SaveEditor.Data.{lang}.FILE_{idx:D3}.dat.gz");
+            sdb.Load(lang, idx);
 
             if (DumpToFile)
             {
-                using (var sw = new StreamWriter(File.OpenWrite($"Data\\{lang}\\FILE_{idx:D3}.csv"), Encoding.UTF8))
+                if(!Directory.Exists($"Data\\{lang.ToString()}"))
+                Directory.CreateDirectory($"Data\\{lang.ToString()}");
+
+                using (var sw = new StreamWriter(File.OpenWrite($"Data\\{lang.ToString()}\\FILE_{idx:D3}.csv"), Encoding.UTF8))
                 {
                     for (int i = 0; i < sdb.Strings.Count; i++)
                     {
@@ -261,6 +265,9 @@ namespace SaveEditor
                 case 2:
                     result = Text3.Strings[id];
                     break;
+                case 3:
+                    result = Text4.Strings[id];
+                    break;
             }
 
             //return result == string.Empty ? STR_UNKNOWN : result;
@@ -275,7 +282,9 @@ namespace SaveEditor
             ClassList = new Dictionary<int, string> { { -1, STR_NONE } };
             BattalionList = new Dictionary<int, string> {{ -1, STR_NONE }};
 
-            AbilityList = new Dictionary<int, string> { { ABILITY_COUNT, STR_NONE } };
+            //AbilityList = new Dictionary<int, string> { { ABILITY_COUNT, STR_NONE }, { 255, STR_NONE } };
+            AbilityList = new Dictionary<int, string> { { -1, STR_NONE } };
+
             CombatArtList = new Dictionary<int, string> { { COMBAT_ARTS_COUNT, STR_NONE } };
             MagicList = new Dictionary<int, string> { { MAGIC_COUNT, STR_NONE } };
             BattalionSkillList = new Dictionary<int, string>{ { BATTALION_SKILL_COUNT, STR_NONE } };
@@ -291,7 +300,7 @@ namespace SaveEditor
             {
                 string str = GetUnitName(i);
                 if(str.EndsWith(STR_UNKNOWN)) continue;
-                UnitList.Add(i, str);
+                UnitList.Add(i, $"{i:D4} - {str}");
 
                 if(i < CHARACTER_USEABLE_COUNT) CharacterList.Add(i, str);
             }
@@ -299,7 +308,7 @@ namespace SaveEditor
             //for (int i = 0; i < 100; i++) UnitList.Add(i, GetUnitName(i));
             //for (int i = 100; i < 200; i++) UnitList.Add(i, GetUnitName(i));
 
-            for (int i = 0; i < 90; i++) ClassList.Add(i, GetClassName(i));
+            for (int i = 0; i < MAX_CLASS; i++) ClassList.Add(i, GetClassName(i));
 
             for (int i = 0; i < BATTALION_COUNT; i++) BattalionList.Add(i, GetBattalionName(i));
 
@@ -326,22 +335,32 @@ namespace SaveEditor
 
             string result = STR_UNKNOWN;
 
-            if (id >= 10 && id < 510) result = GetString(3722 + (id - 10)); // weapon and other
-            if (id >= 600 && id < 650) result = GetString(4522 + (id - 600)); // accessory
-            if (id >= 1000 && id < 1200) result = GetString(4622 + (id - 1000)); // consumable / dish / other 
-            if (id >= 4000 && id < 4038) result = GetString(7802 + (id - 4000)); // magic
+            if(BinaryDatabase.IsItemInRange(enmItemTypes.Weapon, id)) result =
+                GetString(3752 + (id - BinaryDB.ITEM_ID_BASE_WEAPON));
+
+            if(BinaryDatabase.IsItemInRange(enmItemTypes.Accessory, id)) result =
+                GetString(4552 + (id - BinaryDB.ITEM_ID_BASE_ACCESSORY));
             
-            switch (id) // stationary weapons
+            if(BinaryDatabase.IsItemInRange(enmItemTypes.Consumeable, id)) result =
+                GetString(4652 + (id - BinaryDB.ITEM_ID_BASE_CONSUMEABLE));
+             
+            if(BinaryDatabase.IsItemInRange(enmItemTypes.Magic, id)) result =
+                GetString(7832 + (id - BinaryDB.ITEM_ID_BASE_MAGIC));
+          
+            switch (id) // stationary weapons / objects
             {
-                case 5000: result = GetString(5535); break;
-                case 5001: result = GetString(5528); break;
-                case 5002: result = GetString(5529); break;
+                case 5000: result = GetString(5565); break;
+                case 5001: result = GetString(5558); break;
+                case 5002: result = GetString(5559); break;
             }
+     
+            if(BinaryDatabase.IsItemInRange(enmItemTypes.Special1, id)) result =
+                GetString(6610 + (id - BinaryDB.ITEM_ID_BASE_SPECIAL1));
+   
+            if(BinaryDatabase.IsItemInRange(enmItemTypes.Special2, id)) result =
+                GetString(8432 + 30 + (id - BinaryDB.ITEM_ID_BASE_SPECIAL2));
 
-            if (id >= 6000 && id < 6080) result = GetString(6580 + (id - 6000)); // special attacks 1
-            if (id >= 7000 && id < 7060) result = GetString(8402 + (id - 7000)); // special attacks 2
-
-            if(debug) return $"{id:D4} - {result}";
+            if(debug || result == STR_UNKNOWN) return $"{id:D4} - {result}";
             return result;
         }
 
@@ -385,7 +404,7 @@ namespace SaveEditor
         {
             if (id == -1) return STR_NONE;
 
-            string result = GetString(5022 + id);
+            string result = GetString(5052 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -395,7 +414,7 @@ namespace SaveEditor
         {
             if (id == -1) return STR_NONE;
 
-            string result = GetString(10108 + id);
+            string result = GetString(10138 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -406,7 +425,7 @@ namespace SaveEditor
             if (id == -1 || id == BATTALION_COUNT) return STR_NONE;
             if (id > BATTALION_COUNT) return STR_UNKNOWN;
 
-            string result = GetString(9062 + id);
+            string result = GetString(9092 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -417,7 +436,7 @@ namespace SaveEditor
             if (id == -1 || id == BATTALION_SKILL_COUNT) return STR_NONE;
             if (id > BATTALION_SKILL_COUNT) return STR_UNKNOWN;
 
-            string result = GetString(6580 + id);
+            string result = GetString(6610 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -445,7 +464,7 @@ namespace SaveEditor
             if (id == -1 || id == COMBAT_ARTS_COUNT) return STR_NONE;
             if (id > COMBAT_ARTS_COUNT) return STR_UNKNOWN;
 
-            string result = GetString(5980 + id);
+            string result = GetString(6010 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -453,10 +472,10 @@ namespace SaveEditor
         
         public static string GetAbilityName(int id, bool debug = true)
         {
-            if (id == -1 || id == ABILITY_COUNT) return STR_NONE;
+            if (id == -1) return STR_NONE;
             if (id > ABILITY_COUNT) return STR_UNKNOWN;
 
-            string result = GetString(7202 + id);
+            string result = GetString(7232 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -467,7 +486,7 @@ namespace SaveEditor
             if (id == -1 || id == MAGIC_COUNT) return STR_NONE;
             if (id > MAGIC_COUNT) return STR_UNKNOWN;
 
-            string result = GetString(7802 + id);
+            string result = GetString(7832 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -487,7 +506,7 @@ namespace SaveEditor
         {
             if (id == -1) return STR_NONE;
 
-            string result = GetString(9464 + id); // Home: 9464 - 45
+            string result = GetString(9494 + id); // Home: 9464 - 45
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -497,7 +516,7 @@ namespace SaveEditor
         {
             if (id == -1 || id == CREST_COUNT) return STR_NONE;
 
-            string result = GetString(9556 + id);
+            string result = GetString(9586 + id);
 
             if(debug) return $"[{id:D3} - {result}]";
             return result;
@@ -507,7 +526,7 @@ namespace SaveEditor
         {
             if (id == -1) return STR_NONE;
 
-            string result = GetString(12227 + id);
+            string result = GetString(12297 + id);
 
             if(result == "iron_untranslated" || result == "Unused")
                 return STR_NONE;

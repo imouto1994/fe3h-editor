@@ -57,6 +57,9 @@ namespace SaveEditor.Structs
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 40)]
         public byte[] field_3CA;
 
+        [MarshalAs(UnmanagedType.ByValArray, SizeConst = 2)]
+        public byte[] field_3F2; //new
+
         [MarshalAs(UnmanagedType.ByValArray, SizeConst = 150)]
         public byte[] QuestStateList;
 
@@ -84,7 +87,6 @@ namespace SaveEditor.Structs
 
         public byte PlayLog_Wark, PlayLog_Lecture, PlayLog_ToBtl, PlayLog_Rest, PlayLog_Trnmnt, PlayLog_Sing;
         public byte PlayLog_Lunch, PlayLog_Cooking, PlayLog_Drill, PlayLog_Teaparty, PlayLog_SCOUT;
-        public byte field_566, field_567, field_568, field_569;
 
         public int GetInstructLevel()
         {

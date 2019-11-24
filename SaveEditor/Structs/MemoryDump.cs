@@ -27,7 +27,7 @@ namespace SaveEditor.Structs
             public uint ItemCount; //0x640
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = CHARACTER_COUNT)]
-            public Character[] Characters; //0x644
+            public CharacterV1000[] Characters; //0x644
 
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x28)]
             public byte[] PlayerName; //0x8984
@@ -53,7 +53,7 @@ namespace SaveEditor.Structs
             
             [MarshalAs(UnmanagedType.ByValArray, SizeConst = 0x3)] public byte[] padding004;
 
-            public Player Player; //0x22AB9
+            public Player1000 Player; //0x22AB9
                     
             public Activities Activities; //0x249A8
         }
@@ -70,37 +70,38 @@ namespace SaveEditor.Structs
                 var SaveData = Util.ReadStructure<MemorySave>(data);
 
                 save = new Save();
+                /*
+                save.SaveData1000.Items = new Item[SaveData.Items.Length];
+                SaveData.Items.CopyTo(save.SaveData1000.Items, 0);
 
-                save.SaveData.Items = new Item[SaveData.Items.Length];
-                SaveData.Items.CopyTo(save.SaveData.Items, 0);
+                save.SaveData1000.ItemCount = SaveData.ItemCount;
 
-                save.SaveData.ItemCount = SaveData.ItemCount;
+                save.SaveData1000.Characters = new CharacterV1000[SaveData.Characters.Length];
+                SaveData.Characters.CopyTo(save.SaveData1000.Characters, 0);
 
-                save.SaveData.Characters = new Character[SaveData.Characters.Length];
-                SaveData.Characters.CopyTo(save.SaveData.Characters, 0);
-
-                save.SaveData.PlayerName = new byte[SaveData.PlayerName.Length];
-                SaveData.PlayerName.CopyTo(save.SaveData.PlayerName, 0);
+                save.SaveData1000.PlayerName = new byte[SaveData.PlayerName.Length];
+                SaveData.PlayerName.CopyTo(save.SaveData1000.PlayerName, 0);
                 
-                save.SaveData.field_89AC = new byte[SaveData.field_89AC.Length];
-                SaveData.field_89AC.CopyTo(save.SaveData.field_89AC, 0);
+                save.SaveData1000.field_89AC = new byte[SaveData.field_89AC.Length];
+                SaveData.field_89AC.CopyTo(save.SaveData1000.field_89AC, 0);
 
-                save.SaveData.SizeOfUnknown0001 = SaveData.SizeOfUnknown0001;
+                save.SaveData1000.SizeOfUnknown0001 = SaveData.SizeOfUnknown0001;
                 
-                save.SaveData.Unknown0001s = new Unknown0001[SaveData.Unknown0001s.Length];
-                SaveData.Unknown0001s.CopyTo(save.SaveData.Unknown0001s, 0);
+                save.SaveData1000.Unknown0001s = new Unknown0001[SaveData.Unknown0001s.Length];
+                SaveData.Unknown0001s.CopyTo(save.SaveData1000.Unknown0001s, 0);
                 
-                save.SaveData.field_21FFC = new byte[SaveData.field_21FFC.Length];
-                SaveData.field_21FFC.CopyTo(save.SaveData.field_21FFC, 0);
+                save.SaveData1000.field_21FFC = new byte[SaveData.field_21FFC.Length];
+                SaveData.field_21FFC.CopyTo(save.SaveData1000.field_21FFC, 0);
                    
-                save.SaveData.field_227AC = new byte[SaveData.field_227AC.Length];
-                SaveData.field_227AC.CopyTo(save.SaveData.field_227AC, 0);
+                save.SaveData1000.field_227AC = new byte[SaveData.field_227AC.Length];
+                SaveData.field_227AC.CopyTo(save.SaveData1000.field_227AC, 0);
 
                 temp = Util.StructureToByteArray(SaveData.Player);
-                save.SaveData.Player = Util.ReadStructure<Player>(temp);
+                save.SaveData1000.Player = Util.ReadStructure<Player1000>(temp);
 
                 temp = Util.StructureToByteArray(SaveData.Activities);
-                save.SaveData.Activities = Util.ReadStructure<Activities>(temp);
+                save.SaveData1000.Activities = Util.ReadStructure<Activities>(temp);
+                */
             }
         }
     }
